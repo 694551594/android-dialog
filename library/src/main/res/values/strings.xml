@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Library</string>
+    <string name="cancel">取消</string>
+    <string name="okay">确定</string>
+    <string name="dialog_title">温馨提示</string>
+    <string name="loading">正在载入</string>
+</resources>
