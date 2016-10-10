@@ -5,7 +5,7 @@
 - LoadingDialog：正在加载对话框
 - MessageDialog：消息对话框，只有确定按钮
 - AlertDialog：确认对话框，有确认和取消按钮
-- ListDialog：单选或者多选对话框
+- ListDialog：普通选择、单选或者多选对话框
 - EditTextDialog：有一个editText和checkbox的对话框
 - 支持扩展的ContentViewDialog
 
@@ -24,7 +24,7 @@ DialogBuilder.messageDialog(MainActivity.this).setMessage("消息对话框").sho
 ```
 #####显示一个确认对话框
 ```java
-DialogBuilder.alertDialog(this).setMessage(args.getString("message"))
+DialogBuilder.alertDialog(MainActivity.this).setMessage(args.getString("message"))
             .setOnPositiveButtonClickListener(new DialogInterface.OnClickListener() {
               @Override
               public void onClick(DialogInterface dialog, int which) {
@@ -32,15 +32,75 @@ DialogBuilder.alertDialog(this).setMessage(args.getString("message"))
               }
             }).create();
 ```
-#####显示一个选择对话框
+#####显示一个普通选择对话框
 ```java
-final String[] items = {"选择项1", "选择项2"};
-            DialogBuilder.listDialog(MainActivity.this).setChoiceItems(items)
-                .setOnChoiceClickListener(new DialogInterface.OnClickListener() {
+  DialogBuilder.listDialog(MainActivity.this).setChoiceItems(list)
+                .setChoiceType(DialogBuilder.TYPE_CHOICE_NORMAL)
+                .setOnChoiceListener(new DialogBuilder.OnChoiceListener() {
+                  // 对话框关闭后回调的一个方法，返回选择的条目
+                  @Override
+                  public void onChoiceItem(Object item) {
+                    Toast.makeText(MainActivity.this, "最终选择了：" + item, Toast.LENGTH_LONG).show();
+                  }
+                }).setOnChoiceClickListener(new DialogInterface.OnClickListener() {
+                  // 点击条目后回调的一个方法
                   @Override
                   public void onClick(DialogInterface dialog, int which) {
-                    Toast.makeText(MainActivity.this, "选择了：" + items[which], Toast.LENGTH_LONG)
+                    Toast.makeText(MainActivity.this, "点击了第" + (which + 1) + "个条目",
+                        Toast.LENGTH_LONG).show();
+                  }
+                }).show();
+```
+#####显示一个单选对话框
+```java
+ DialogBuilder.listDialog(MainActivity.this).setChoiceItems(list)
+                .setChoiceType(DialogBuilder.TYPE_CHOICE_SINGLE)
+                .setOnChoiceListener(new DialogBuilder.OnChoiceListener() {
+                  // 对话框关闭后回调的一个方法，返回选择的条目
+                  @Override
+                  public void onChoiceItem(Object item) {
+                    Toast.makeText(MainActivity.this, "最终选择了：" + item, Toast.LENGTH_LONG).show();
+                  }
+                }).setOnChoiceClickListener(new DialogInterface.OnClickListener() {
+                  // 选择某一个条目的时候回调的一个方法，返回选择的是哪一个条目
+                  @Override
+                  public void onClick(DialogInterface dialog, int which) {
+                    Toast.makeText(MainActivity.this, "点击了第" + (which + 1) + "个条目",
+                        Toast.LENGTH_LONG).show();
+                  }
+                }).setOnPositiveButtonClickListener(new DialogInterface.OnClickListener() {
+                  @Override
+                  public void onClick(DialogInterface dialog, int which) {
+                    Toast.makeText(MainActivity.this, "点击了确定按钮", Toast.LENGTH_LONG).show();
+                  }
+                }).show();
+```
+#####显示一个多选对话框
+```java
+ // 已经选好的条目
+            int[] checkedItems = {1, 3, 4};
+            DialogBuilder.listDialog(MainActivity.this)
+                .setChoiceType(DialogBuilder.TYPE_CHOICE_MULTI).setChoiceItems(list)
+                .setCheckedItems(checkedItems)
+                .setOnPositiveButtonClickListener(new DialogInterface.OnClickListener() {
+                  @Override
+                  public void onClick(DialogInterface dialog, int which) {
+                    Toast.makeText(MainActivity.this, "点击了确定按钮", Toast.LENGTH_LONG).show();
+                  }
+                }).setOnMultiChoiceClickListener(new DialogInterface.OnMultiChoiceClickListener() {
+                  // 选择或者取消选择某一个条目的时候回调的一个方法，返回某一个条目的选择情况
+                  @Override
+                  public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+                    Toast.makeText(MainActivity.this,
+                        (isChecked ? "选择" : "取消选择") + "了第" + (which + 1) + "个条目", Toast.LENGTH_LONG)
                         .show();
+                  }
+                }).setOnMultiChoiceListener(new DialogBuilder.OnMultiChoiceListener() {
+                  // 对话框关闭后回调的一个方法，返回选择的条目
+                  @Override
+                  public void onMultiChoiceItems(Object[] items) {
+                    Toast.makeText(MainActivity.this, "最终选择了：" + Arrays.toString(items),
+                        Toast.LENGTH_LONG).show();
                   }
                 }).show();
 ```
