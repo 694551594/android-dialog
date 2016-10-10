@@ -9,6 +9,8 @@
 - EditTextDialog：有一个editText和checkbox的对话框
 - 支持扩展的ContentViewDialog
 
+[![](https://raw.githubusercontent.com/694551594/android-dialog/master/screenshots/截屏_20161010_140525.png)](https://raw.githubusercontent.com/694551594/android-dialog/master/screenshots/截屏_20161010_140525.png)
+
 #gradle配置方式
 `compile 'cn.yhq:android-dialog:1.0'`
 #使用方法
@@ -18,10 +20,12 @@
 ```java
 DialogBuilder.loadingDialog(this).show();
 ```
+[![](https://raw.githubusercontent.com/694551594/android-dialog/master/screenshots/截屏_20161010_140528.png)](https://raw.githubusercontent.com/694551594/android-dialog/master/screenshots/截屏_20161010_140528.png)
 #####显示一个消息对话框
 ```java
 DialogBuilder.messageDialog(MainActivity.this).setMessage("消息对话框").show();
 ```
+[![](https://raw.githubusercontent.com/694551594/android-dialog/master/screenshots/截屏_20161010_140532.png)](https://raw.githubusercontent.com/694551594/android-dialog/master/screenshots/截屏_20161010_140532.png)
 #####显示一个确认对话框
 ```java
 DialogBuilder.alertDialog(MainActivity.this).setMessage(args.getString("message"))
@@ -32,6 +36,7 @@ DialogBuilder.alertDialog(MainActivity.this).setMessage(args.getString("message"
               }
             }).create();
 ```
+[![](https://raw.githubusercontent.com/694551594/android-dialog/master/screenshots/截屏_20161010_140535.png)](https://raw.githubusercontent.com/694551594/android-dialog/master/screenshots/截屏_20161010_140535.png)
 #####显示一个普通选择对话框
 ```java
   DialogBuilder.listDialog(MainActivity.this).setChoiceItems(list)
@@ -51,6 +56,7 @@ DialogBuilder.alertDialog(MainActivity.this).setMessage(args.getString("message"
                   }
                 }).show();
 ```
+[![](https://raw.githubusercontent.com/694551594/android-dialog/master/screenshots/截屏_20161010_140538.png)](https://raw.githubusercontent.com/694551594/android-dialog/master/screenshots/截屏_20161010_140538.png)
 #####显示一个单选对话框
 ```java
  DialogBuilder.listDialog(MainActivity.this).setChoiceItems(list)
@@ -75,6 +81,7 @@ DialogBuilder.alertDialog(MainActivity.this).setMessage(args.getString("message"
                   }
                 }).show();
 ```
+[![](https://raw.githubusercontent.com/694551594/android-dialog/master/screenshots/截屏_20161010_140547.png)](https://raw.githubusercontent.com/694551594/android-dialog/master/screenshots/截屏_20161010_140547.png)
 #####显示一个多选对话框
 ```java
  // 已经选好的条目
@@ -104,6 +111,7 @@ DialogBuilder.alertDialog(MainActivity.this).setMessage(args.getString("message"
                   }
                 }).show();
 ```
+[![](https://raw.githubusercontent.com/694551594/android-dialog/master/screenshots/截屏_20161010_140550.png)](https://raw.githubusercontent.com/694551594/android-dialog/master/screenshots/截屏_20161010_140550.png)
 #####显示一个文本输入对话框
 ```java
 DialogBuilder.editTextDialog(MainActivity.this)
@@ -124,6 +132,7 @@ DialogBuilder.editTextDialog(MainActivity.this)
                   }
                 }).show();
 ```
+[![](https://raw.githubusercontent.com/694551594/android-dialog/master/screenshots/截屏_20161010_140553.png)](https://raw.githubusercontent.com/694551594/android-dialog/master/screenshots/截屏_20161010_140553.png)
 #####显示一个自定义对话框
 ```java
 View customView =
@@ -132,6 +141,7 @@ View customView =
             textView.setText("自定义视图");
             DialogBuilder.otherDialog(MainActivity.this).setContentView(customView).show();
 ```
+[![](https://raw.githubusercontent.com/694551594/android-dialog/master/screenshots/截屏_20161010_140556.png)](https://raw.githubusercontent.com/694551594/android-dialog/master/screenshots/截屏_20161010_140556.png)
 #### 2、使用DialogManager，配合IDialogCreator接口创建的对话框，这种方式创建的对话框会保存状态，在屏幕旋转后对话框不会消失。
 
 ```java
