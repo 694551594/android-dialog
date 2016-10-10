@@ -16,9 +16,24 @@ import cn.yhq.dialog.BaseActivity;
 import cn.yhq.dialog.core.DialogBuilder;
 import cn.yhq.dialog.core.IDialog;
 
-
+/**
+ * 创建对话框的方式有两种：
+ *
+ * 1、直接创建，这种方式创建的对话框不会保存状态，即当屏幕旋转等导致的activity重建，对话框会消失。
+ * 2、使用DialogManager，配合IDialogCreator接口创建的对话框，这种方式创建的对话框会保存状态，在屏幕旋转后对话框不会消失。
+ * 3、当使用第二种方式的时候，你可以在你的Activity基类里面实现IDialogCreator接口，并提供DialogManager的封装方法，
+ *    这样在你的Activity子类里面重写IDialogCreator接口方法后，直接调用显示对话框的方法showDialogFragment就可以直接显示对话框了。
+ *    具体可以参考BaseActivity与BaseFragment
+ */
 public class MainActivity extends BaseActivity {
 
+  /**
+   * 如果想要保存对话框的状态，需要重写此方法，然后返回构建的IDialog对象即可
+   *
+   * @param id
+   * @param args
+   * @return
+   */
   @Override
   public IDialog createDialog(int id, Bundle args) {
     switch (id) {
@@ -61,6 +76,7 @@ public class MainActivity extends BaseActivity {
             DialogBuilder.messageDialog(MainActivity.this).setMessage("消息对话框").show();
             break;
           case 2:
+            // 此种方式创建的对话框会保存状态，旋转屏幕的时候对话框不会消失
             Bundle args = new Bundle();
             args.putString("message", "确认对话框");
             showDialogFragment(1, args);
