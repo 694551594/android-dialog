@@ -34,6 +34,7 @@ public final class DialogBuilder {
   private CharSequence[] choiceItems;
   private ListAdapter choiceAdapter;
   private int choiceItem;
+  private int[] checkedItems;
   private View contentView;
   private int contentViewResId;
   private DialogInterface.OnClickListener onPositiveButtonClickListener;
@@ -42,6 +43,9 @@ public final class DialogBuilder {
   private DialogInterface.OnCancelListener onCancelListener;
   private DialogInterface.OnDismissListener onDismissListener;
   private OnEditTextDialogListener onEditTextDialogListener;
+  private DialogInterface.OnMultiChoiceClickListener onMultiChoiceClickListener;
+  private OnChoiceListener onChoiceListener;
+  private OnMultiChoiceListener onMultiChoiceListener;
 
   public final static int TYPE_CHOICE_NORMAL = 0;
   public final static int TYPE_CHOICE_SINGLE = 1;
@@ -63,6 +67,7 @@ public final class DialogBuilder {
   public static DialogBuilder messageDialog(Context context) {
     return builder(context, DIALOG_MESSAGE);
   }
+
   public static DialogBuilder alertDialog(Context context) {
     return builder(context, DIALOG_ALERT);
   }
@@ -83,12 +88,20 @@ public final class DialogBuilder {
     return builder(context, DIALOG_OTHER);
   }
 
+  public interface OnChoiceListener {
+    void onChoiceItem(Object item);
+  }
+
+  public interface OnMultiChoiceListener {
+    void onMultiChoiceItems(Object[] items);
+  }
+
   public interface OnEditTextDialogListener {
     void onEditTextCreated(EditText editText, CheckBox checkbox);
 
     /**
      * 点击确定按钮的时候回调方法，返回true不会关闭对话框，返回false会关闭对话框
-     * 
+     *
      * @param editText
      * @param text
      * @param checkbox
@@ -149,6 +162,9 @@ public final class DialogBuilder {
 
   public DialogBuilder setChoiceAdapter(ListAdapter choiceAdapter) {
     this.choiceAdapter = choiceAdapter;
+    if (this.getChoiceType() == TYPE_CHOICE_MULTI) {
+      throw new IllegalArgumentException("多选对话框不可以设置adapter");
+    }
     return this;
   }
 
@@ -335,6 +351,16 @@ public final class DialogBuilder {
     return this;
   }
 
+  public DialogInterface.OnMultiChoiceClickListener getOnMultiChoiceClickListener() {
+    return onMultiChoiceClickListener;
+  }
+
+  public DialogBuilder setOnMultiChoiceClickListener(
+      DialogInterface.OnMultiChoiceClickListener onMultiChoiceClickListener) {
+    this.onMultiChoiceClickListener = onMultiChoiceClickListener;
+    return this;
+  }
+
   public DialogInterface.OnClickListener getOnChoiceClickListener() {
     return onChoiceClickListener;
   }
@@ -342,6 +368,33 @@ public final class DialogBuilder {
   public DialogBuilder setOnChoiceClickListener(
       DialogInterface.OnClickListener onChoiceClickListener) {
     this.onChoiceClickListener = onChoiceClickListener;
+    return this;
+  }
+
+  public int[] getCheckedItems() {
+    return checkedItems;
+  }
+
+  public DialogBuilder setCheckedItems(int[] checkedItems) {
+    this.checkedItems = checkedItems;
+    return this;
+  }
+
+  public OnChoiceListener getOnChoiceListener() {
+    return onChoiceListener;
+  }
+
+  public DialogBuilder setOnChoiceListener(OnChoiceListener onChoiceListener) {
+    this.onChoiceListener = onChoiceListener;
+    return this;
+  }
+
+  public OnMultiChoiceListener getOnMultiChoiceListener() {
+    return onMultiChoiceListener;
+  }
+
+  public DialogBuilder setOnMultiChoiceListener(OnMultiChoiceListener onMultiChoiceListener) {
+    this.onMultiChoiceListener = onMultiChoiceListener;
     return this;
   }
 

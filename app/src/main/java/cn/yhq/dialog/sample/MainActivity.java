@@ -10,6 +10,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.Arrays;
+
 import cn.yhq.adapter.core.ViewHolder;
 import cn.yhq.adapter.list.SimpleListAdapter;
 import cn.yhq.dialog.BaseActivity;
@@ -22,8 +24,8 @@ import cn.yhq.dialog.core.IDialog;
  * 1、直接创建，这种方式创建的对话框不会保存状态，即当屏幕旋转等导致的activity重建，对话框会消失。
  * 2、使用DialogManager，配合IDialogCreator接口创建的对话框，这种方式创建的对话框会保存状态，在屏幕旋转后对话框不会消失。
  * 3、当使用第二种方式的时候，你可以在你的Activity基类里面实现IDialogCreator接口，并提供DialogManager的封装方法，
- *    这样在你的Activity子类里面重写IDialogCreator接口方法后，直接调用显示对话框的方法showDialogFragment就可以直接显示对话框了。
- *    具体可以参考BaseActivity与BaseFragment
+ * 这样在你的Activity子类里面重写IDialogCreator接口方法后，直接调用显示对话框的方法showDialogFragment就可以直接显示对话框了。
+ * 具体可以参考BaseActivity与BaseFragment
  */
 public class MainActivity extends BaseActivity {
 
@@ -55,8 +57,9 @@ public class MainActivity extends BaseActivity {
     setContentView(R.layout.activity_main);
 
     ListView listView = (ListView) this.findViewById(R.id.listview);
-    SimpleListAdapter<String> adapter = SimpleListAdapter.create(this,
-        new String[] {"正在载入对话框", "消息对话框", "确认对话框", "单选对话框", "文本输入对话框", "自定义对话框"},
+    final SimpleListAdapter<String> adapter = SimpleListAdapter.create(this,
+        new String[] {"正在载入对话框", "消息对话框", "确认对话框", "普通选择对话框", "单选对话框", "多选对话框", "文本输入对话框",
+            "自定义对话框"},
         android.R.layout.simple_list_item_1, new SimpleListAdapter.IItemViewSetup<String>() {
           @Override
           public void setupView(ViewHolder viewHolder, int position, String entity) {
@@ -65,6 +68,7 @@ public class MainActivity extends BaseActivity {
         });
 
     listView.setAdapter(adapter);
+    final String[] list = {"选择项1", "选择项2", "选择项3", "选择项4", "选择项5", "选择项6"};
     listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
       @Override
       public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -82,17 +86,75 @@ public class MainActivity extends BaseActivity {
             showDialogFragment(1, args);
             break;
           case 3:
-            final String[] items = {"选择项1", "选择项2"};
-            DialogBuilder.listDialog(MainActivity.this).setChoiceItems(items)
-                .setOnChoiceClickListener(new DialogInterface.OnClickListener() {
+            DialogBuilder.listDialog(MainActivity.this).setChoiceItems(list)
+                .setChoiceType(DialogBuilder.TYPE_CHOICE_NORMAL)
+                .setOnChoiceListener(new DialogBuilder.OnChoiceListener() {
+                  // 对话框关闭后回调的一个方法，返回选择的条目
+                  @Override
+                  public void onChoiceItem(Object item) {
+                    Toast.makeText(MainActivity.this, "最终选择了：" + item, Toast.LENGTH_LONG).show();
+                  }
+                }).setOnChoiceClickListener(new DialogInterface.OnClickListener() {
+                  // 点击条目后回调的一个方法
                   @Override
                   public void onClick(DialogInterface dialog, int which) {
-                    Toast.makeText(MainActivity.this, "选择了：" + items[which], Toast.LENGTH_LONG)
-                        .show();
+                    Toast.makeText(MainActivity.this, "点击了第" + (which + 1) + "个条目",
+                        Toast.LENGTH_LONG).show();
                   }
                 }).show();
             break;
           case 4:
+            DialogBuilder.listDialog(MainActivity.this).setChoiceItems(list)
+                .setChoiceType(DialogBuilder.TYPE_CHOICE_SINGLE)
+                .setOnChoiceListener(new DialogBuilder.OnChoiceListener() {
+                  // 对话框关闭后回调的一个方法，返回选择的条目
+                  @Override
+                  public void onChoiceItem(Object item) {
+                    Toast.makeText(MainActivity.this, "最终选择了：" + item, Toast.LENGTH_LONG).show();
+                  }
+                }).setOnChoiceClickListener(new DialogInterface.OnClickListener() {
+                  // 选择某一个条目的时候回调的一个方法，返回选择的是哪一个条目
+                  @Override
+                  public void onClick(DialogInterface dialog, int which) {
+                    Toast.makeText(MainActivity.this, "点击了第" + (which + 1) + "个条目",
+                        Toast.LENGTH_LONG).show();
+                  }
+                }).setOnPositiveButtonClickListener(new DialogInterface.OnClickListener() {
+                  @Override
+                  public void onClick(DialogInterface dialog, int which) {
+                    Toast.makeText(MainActivity.this, "点击了确定按钮", Toast.LENGTH_LONG).show();
+                  }
+                }).show();
+            break;
+          case 5:
+            // 已经选好的条目
+            int[] checkedItems = {1, 3, 4};
+            DialogBuilder.listDialog(MainActivity.this)
+                .setChoiceType(DialogBuilder.TYPE_CHOICE_MULTI).setChoiceItems(list)
+                .setCheckedItems(checkedItems)
+                .setOnPositiveButtonClickListener(new DialogInterface.OnClickListener() {
+                  @Override
+                  public void onClick(DialogInterface dialog, int which) {
+                    Toast.makeText(MainActivity.this, "点击了确定按钮", Toast.LENGTH_LONG).show();
+                  }
+                }).setOnMultiChoiceClickListener(new DialogInterface.OnMultiChoiceClickListener() {
+                  // 选择或者取消选择某一个条目的时候回调的一个方法，返回某一个条目的选择情况
+                  @Override
+                  public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+                    Toast.makeText(MainActivity.this,
+                        (isChecked ? "选择" : "取消选择") + "了第" + (which + 1) + "个条目", Toast.LENGTH_LONG)
+                        .show();
+                  }
+                }).setOnMultiChoiceListener(new DialogBuilder.OnMultiChoiceListener() {
+                  // 对话框关闭后回调的一个方法，返回选择的条目
+                  @Override
+                  public void onMultiChoiceItems(Object[] items) {
+                    Toast.makeText(MainActivity.this, "最终选择了：" + Arrays.toString(items),
+                        Toast.LENGTH_LONG).show();
+                  }
+                }).show();
+            break;
+          case 6:
             DialogBuilder.editTextDialog(MainActivity.this)
                 .setOnEditTextDialogListener(new DialogBuilder.OnEditTextDialogListener() {
                   @Override
@@ -111,7 +173,7 @@ public class MainActivity extends BaseActivity {
                   }
                 }).show();
             break;
-          case 5:
+          case 7:
             View customView =
                 View.inflate(MainActivity.this, android.R.layout.simple_list_item_1, null);
             TextView textView = (TextView) customView.findViewById(android.R.id.text1);

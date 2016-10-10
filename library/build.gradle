@@ -1,4 +1,5 @@
 apply plugin: 'com.android.library'
+apply plugin: 'com.novoda.bintray-release'
 
 android {
     compileSdkVersion 23
@@ -28,4 +29,13 @@ dependencies {
     })
     compile 'com.android.support:appcompat-v7:23.4.0'
     testCompile 'junit:junit:4.12'
+}
+
+publish {
+    userOrg = '694551594'
+    groupId = 'cn.yhq'
+    artifactId = 'android-dialog'
+    publishVersion = '1.0'
+    desc = 'android对话框'
+    website = 'https://github.com/694551594/android-dialog'
 }
