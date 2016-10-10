@@ -22,11 +22,6 @@
 DialogBuilder.loadingDialog(this).show();
 ```
 [![](https://raw.githubusercontent.com/694551594/android-dialog/master/screenshots/截屏_20161010_140528.png)](https://raw.githubusercontent.com/694551594/android-dialog/master/screenshots/截屏_20161010_140528.png)
-#####显示一个消息对话框
-```java
-DialogBuilder.messageDialog(MainActivity.this).setMessage("消息对话框").show();
-```
-[![](https://raw.githubusercontent.com/694551594/android-dialog/master/screenshots/截屏_20161010_140532.png)](https://raw.githubusercontent.com/694551594/android-dialog/master/screenshots/截屏_20161010_140532.png)
 #####显示一个进度对话框
 这个地方需要注意的是需要设置一个ProgressHandler，用于主动更新对话框的进度：
 ```java
@@ -37,6 +32,11 @@ DialogBuilder.ProgressHandler progressHandler =
 progressHandler.setProgress(progress);
 ```
 [![](https://raw.githubusercontent.com/694551594/android-dialog/master/screenshots/截屏_20161010_175735.png)](https://raw.githubusercontent.com/694551594/android-dialog/master/screenshots/截屏_20161010_175735.png)
+#####显示一个消息对话框
+```java
+DialogBuilder.messageDialog(MainActivity.this).setMessage("消息对话框").show();
+```
+[![](https://raw.githubusercontent.com/694551594/android-dialog/master/screenshots/截屏_20161010_140532.png)](https://raw.githubusercontent.com/694551594/android-dialog/master/screenshots/截屏_20161010_140532.png)
 #####显示一个确认对话框
 ```java
 DialogBuilder.alertDialog(MainActivity.this).setMessage(args.getString("message"))
