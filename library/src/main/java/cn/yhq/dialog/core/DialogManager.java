@@ -9,7 +9,6 @@ import android.support.v4.app.FragmentManager;
 /**
  * Created by Yanghuiqiang on 2016/10/9.
  */
-
 public final class DialogManager {
   private Context context;
   private FragmentManager fragmentManager;

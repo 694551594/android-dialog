@@ -6,16 +6,16 @@ import android.view.Window;
 
 import cn.yhq.dialog.R;
 import cn.yhq.dialog.core.DialogBuilder;
-import cn.yhq.dialog.core.IDialogProvider;
+import cn.yhq.dialog.core.DialogProvider;
 
 /**
  * Created by Yanghuiqiang on 2016/10/8.
  */
 
-public class LoadingDialogProvider implements IDialogProvider {
+public class LoadingDialogProvider extends DialogProvider {
 
   @Override
-  public Dialog createDialog(DialogBuilder dialogBuilder) {
+  public Dialog createInnerDialog(DialogBuilder dialogBuilder) {
     Dialog dialog =
         new AlertDialog.Builder(dialogBuilder.getContext()).setView(R.layout.comm_dialog_loading)
             .setOnCancelListener(dialogBuilder.getOnCancelListener())

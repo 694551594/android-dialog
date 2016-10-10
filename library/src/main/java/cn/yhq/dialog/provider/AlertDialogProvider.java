@@ -4,17 +4,17 @@ import android.app.Dialog;
 import android.support.v7.app.AlertDialog;
 
 import cn.yhq.dialog.core.DialogBuilder;
-import cn.yhq.dialog.core.IDialogProvider;
+import cn.yhq.dialog.core.DialogProvider;
 
 
 /**
  * Created by Yanghuiqiang on 2016/10/8.
  */
 
-public class AlertDialogProvider implements IDialogProvider {
+public class AlertDialogProvider extends DialogProvider {
 
   @Override
-  public Dialog createDialog(DialogBuilder dialogBuilder) {
+  public Dialog createInnerDialog(DialogBuilder dialogBuilder) {
     return new AlertDialog.Builder(dialogBuilder.getContext()).setTitle(dialogBuilder.getTitle())
         .setMessage(dialogBuilder.getMessage())
         .setNegativeButton(dialogBuilder.getNegativeButtonText(),

@@ -55,10 +55,10 @@ public class MainActivity extends BaseActivity {
       public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         switch (position) {
           case 0:
-            DialogBuilder.loadingDialog(MainActivity.this).create().show();
+            DialogBuilder.loadingDialog(MainActivity.this).show();
             break;
           case 1:
-            DialogBuilder.messageDialog(MainActivity.this).setMessage("消息对话框").create().show();
+            DialogBuilder.messageDialog(MainActivity.this).setMessage("消息对话框").show();
             break;
           case 2:
             Bundle args = new Bundle();
@@ -74,7 +74,7 @@ public class MainActivity extends BaseActivity {
                     Toast.makeText(MainActivity.this, "选择了：" + items[which], Toast.LENGTH_LONG)
                         .show();
                   }
-                }).create().show();
+                }).show();
             break;
           case 4:
             DialogBuilder.editTextDialog(MainActivity.this)
@@ -93,14 +93,14 @@ public class MainActivity extends BaseActivity {
                         Toast.LENGTH_LONG).show();
                     return false;
                   }
-                }).create().show();
+                }).show();
             break;
           case 5:
             View customView =
                 View.inflate(MainActivity.this, android.R.layout.simple_list_item_1, null);
             TextView textView = (TextView) customView.findViewById(android.R.id.text1);
             textView.setText("自定义视图");
-            DialogBuilder.otherDialog(MainActivity.this).setContentView(customView).create().show();
+            DialogBuilder.otherDialog(MainActivity.this).setContentView(customView).show();
             break;
         }
       }

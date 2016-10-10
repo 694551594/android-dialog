@@ -38,7 +38,7 @@ public class DialogFragment extends android.support.v4.app.DialogFragment {
     Bundle bundle = new Bundle();
     bundle.putInt("id", id);
     bundle.putBundle("args", args);
-    final DialogFragment dialogFragment =
+    DialogFragment dialogFragment =
         (DialogFragment) Fragment.instantiate(context, DialogFragment.class.getName(), bundle);
     return dialogFragment;
   }

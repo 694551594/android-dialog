@@ -5,16 +5,16 @@ import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
 
 import cn.yhq.dialog.core.DialogBuilder;
-import cn.yhq.dialog.core.IDialogProvider;
+import cn.yhq.dialog.core.DialogProvider;
 
 /**
  * Created by Yanghuiqiang on 2016/10/8.
  */
 
-public class ListDialogProvider implements IDialogProvider {
+public class ListDialogProvider extends DialogProvider {
 
   @Override
-  public Dialog createDialog(DialogBuilder dialogBuilder) {
+  public Dialog createInnerDialog(DialogBuilder dialogBuilder) {
     AlertDialog.Builder builder = new AlertDialog.Builder(dialogBuilder.getContext())
         .setTitle(dialogBuilder.getTitle()).setOnCancelListener(dialogBuilder.getOnCancelListener())
         .setOnDismissListener(dialogBuilder.getOnDismissListener());

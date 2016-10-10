@@ -2,8 +2,6 @@ package cn.yhq.dialog.core;
 
 import android.content.Context;
 import android.content.DialogInterface;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
 import android.text.Html;
 import android.text.TextUtils;
 import android.view.View;
@@ -26,12 +24,10 @@ import cn.yhq.dialog.R;
 public final class DialogBuilder {
 
   private Context context;
-  private FragmentManager fragmentManager;
   private String title;
   private String message;
   private String positiveButtonText;
   private String negativeButtonText;
-  private int id;
   private boolean cancelable;
   private int choiceType = TYPE_CHOICE_NORMAL;
 
@@ -231,36 +227,6 @@ public final class DialogBuilder {
   }
 
   /**
-   * @return the id
-   */
-  public int getId() {
-    return id;
-  }
-
-  /**
-   * @param id the id to set
-   */
-  public DialogBuilder setId(int id) {
-    this.id = id;
-    return this;
-  }
-
-  /**
-   * @return the fragmentManager
-   */
-  public FragmentManager getFragmentManager() {
-    return fragmentManager;
-  }
-
-  /**
-   * @param fragmentManager the fragmentManager to set
-   */
-  public DialogBuilder setFragmentManager(FragmentManager fragmentManager) {
-    this.fragmentManager = fragmentManager;
-    return this;
-  }
-
-  /**
    * @return the context
    */
   public Context getContext() {
@@ -272,10 +238,6 @@ public final class DialogBuilder {
    */
   public DialogBuilder setContext(Context context) {
     this.context = context;
-    if (context instanceof FragmentActivity) {
-      FragmentActivity activity = (FragmentActivity) context;
-      this.setFragmentManager(activity.getSupportFragmentManager());
-    }
     return this;
   }
 

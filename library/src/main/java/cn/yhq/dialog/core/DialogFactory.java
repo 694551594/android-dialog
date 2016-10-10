@@ -40,9 +40,7 @@ public final class DialogFactory {
   public static IDialog create(DialogBuilder dialogBuilder) {
     int dialogType = dialogBuilder.getDialogType();
     IDialogProvider dialogProvider = dialogProviders.get(dialogType);
-    android.app.Dialog innerDialog = dialogProvider.createDialog(dialogBuilder);
-    IDialog dialog = new Dialog(innerDialog);
-    return dialog;
+    return dialogProvider.createDialog(dialogBuilder);
   }
 
 }

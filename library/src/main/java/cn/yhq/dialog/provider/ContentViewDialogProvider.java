@@ -6,7 +6,7 @@ import android.util.TypedValue;
 
 import cn.yhq.dialog.R;
 import cn.yhq.dialog.core.DialogBuilder;
-import cn.yhq.dialog.core.IDialogProvider;
+import cn.yhq.dialog.core.DialogProvider;
 import cn.yhq.dialog.utils.DisplayUtils;
 
 
@@ -14,10 +14,10 @@ import cn.yhq.dialog.utils.DisplayUtils;
  * Created by Yanghuiqiang on 2016/10/8.
  */
 
-public class ContentViewDialogProvider implements IDialogProvider {
+public class ContentViewDialogProvider extends DialogProvider {
 
   @Override
-  public Dialog createDialog(DialogBuilder dialogBuilder) {
+  public Dialog createInnerDialog(DialogBuilder dialogBuilder) {
     AlertDialog.Builder builder = new AlertDialog.Builder(dialogBuilder.getContext())
         .setTitle(dialogBuilder.getTitle()).setMessage(dialogBuilder.getMessage())
         .setNegativeButton(dialogBuilder.getNegativeButtonText(),

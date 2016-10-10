@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import cn.yhq.dialog.R;
 import cn.yhq.dialog.core.DialogBuilder;
-import cn.yhq.dialog.core.IDialogProvider;
+import cn.yhq.dialog.core.DialogProvider;
 import cn.yhq.dialog.utils.EditTextUtils;
 
 
@@ -20,11 +20,11 @@ import cn.yhq.dialog.utils.EditTextUtils;
  * Created by Yanghuiqiang on 2016/10/8.
  */
 
-public class EditTextDialogProvider implements IDialogProvider {
+public class EditTextDialogProvider extends DialogProvider {
 
   @SuppressLint("InflateParams")
   @Override
-  public Dialog createDialog(DialogBuilder dialogBuilder) {
+  public Dialog createInnerDialog(DialogBuilder dialogBuilder) {
     View contentView = LayoutInflater.from(dialogBuilder.getContext())
         .inflate(R.layout.comm_dialog_edittext, null, false);
     EditText editText = (EditText) contentView.findViewById(R.id.edittext);
