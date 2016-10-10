@@ -46,6 +46,7 @@ public final class DialogBuilder {
   private DialogInterface.OnMultiChoiceClickListener onMultiChoiceClickListener;
   private OnChoiceListener onChoiceListener;
   private OnMultiChoiceListener onMultiChoiceListener;
+  private OnProgressListener onProgressListener;
 
   public final static int TYPE_CHOICE_NORMAL = 0;
   public final static int TYPE_CHOICE_SINGLE = 1;
@@ -59,9 +60,14 @@ public final class DialogBuilder {
   public final static int DIALOG_LOADING = 2;
   public final static int DIALOG_LIST = 3;
   public final static int DIALOG_EDIT_TEXT = 4;
+  public final static int DIALOG_PROGRESS = 5;
 
   public static DialogBuilder builder(Context context, int dialogType) {
     return new DialogBuilder(context, dialogType);
+  }
+
+  public static DialogBuilder progressDialog(Context context) {
+    return builder(context, DIALOG_PROGRESS);
   }
 
   public static DialogBuilder messageDialog(Context context) {
@@ -86,6 +92,18 @@ public final class DialogBuilder {
 
   public static DialogBuilder otherDialog(Context context) {
     return builder(context, DIALOG_OTHER);
+  }
+
+  public interface OnProgressListener {
+    void onProgress(int progress);
+  }
+
+  public static class ProgressHandler {
+    OnProgressListener listener;
+
+    public void setProgress(int progress) {
+      listener.onProgress(progress);
+    }
   }
 
   public interface OnChoiceListener {
@@ -395,6 +413,24 @@ public final class DialogBuilder {
 
   public DialogBuilder setOnMultiChoiceListener(OnMultiChoiceListener onMultiChoiceListener) {
     this.onMultiChoiceListener = onMultiChoiceListener;
+    return this;
+  }
+
+  public OnProgressListener getOnProgressListener() {
+    return onProgressListener;
+  }
+
+  public void setOnProgressListener(OnProgressListener onProgressListener) {
+    this.onProgressListener = onProgressListener;
+  }
+
+  public DialogBuilder progressHandler(ProgressHandler progressHandler) {
+    progressHandler.listener = new OnProgressListener() {
+      @Override
+      public void onProgress(int progress) {
+        onProgressListener.onProgress(progress);
+      }
+    };
     return this;
   }
 

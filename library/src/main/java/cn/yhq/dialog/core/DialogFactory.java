@@ -7,6 +7,7 @@ import cn.yhq.dialog.provider.ContentViewDialogProvider;
 import cn.yhq.dialog.provider.EditTextDialogProvider;
 import cn.yhq.dialog.provider.ListDialogProvider;
 import cn.yhq.dialog.provider.LoadingDialogProvider;
+import cn.yhq.dialog.provider.ProgressDialogProvider;
 
 import static cn.yhq.dialog.core.DialogBuilder.DIALOG_ALERT;
 import static cn.yhq.dialog.core.DialogBuilder.DIALOG_EDIT_TEXT;
@@ -14,6 +15,7 @@ import static cn.yhq.dialog.core.DialogBuilder.DIALOG_LIST;
 import static cn.yhq.dialog.core.DialogBuilder.DIALOG_LOADING;
 import static cn.yhq.dialog.core.DialogBuilder.DIALOG_MESSAGE;
 import static cn.yhq.dialog.core.DialogBuilder.DIALOG_OTHER;
+import static cn.yhq.dialog.core.DialogBuilder.DIALOG_PROGRESS;
 
 /**
  * 对话框生成工厂
@@ -31,6 +33,7 @@ public final class DialogFactory {
     register(DIALOG_LOADING, new LoadingDialogProvider());
     register(DIALOG_LIST, new ListDialogProvider());
     register(DIALOG_EDIT_TEXT, new EditTextDialogProvider());
+    register(DIALOG_PROGRESS, new ProgressDialogProvider());
   }
 
   public static void register(int dialogType, IDialogProvider dialogProvider) {

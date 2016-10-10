@@ -2,6 +2,8 @@ package cn.yhq.dialog.sample;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.CheckBox;
@@ -58,8 +60,8 @@ public class MainActivity extends BaseActivity {
 
     ListView listView = (ListView) this.findViewById(R.id.listview);
     final SimpleListAdapter<String> adapter = SimpleListAdapter.create(this,
-        new String[] {"正在载入对话框", "消息对话框", "确认对话框", "普通选择对话框", "单选对话框", "多选对话框", "文本输入对话框",
-            "自定义对话框"},
+        new String[] {"正在载入对话框", "消息对话框", "确认对话框", "普通选择对话框", "单选对话框", "多选对话框", "文本输入对话框", "自定义对话框",
+            "进度对话框"},
         android.R.layout.simple_list_item_1, new SimpleListAdapter.IItemViewSetup<String>() {
           @Override
           public void setupView(ViewHolder viewHolder, int position, String entity) {
@@ -179,6 +181,34 @@ public class MainActivity extends BaseActivity {
             TextView textView = (TextView) customView.findViewById(android.R.id.text1);
             textView.setText("自定义视图");
             DialogBuilder.otherDialog(MainActivity.this).setContentView(customView).show();
+            break;
+          case 8:
+            final DialogBuilder.ProgressHandler progressHandler =
+                new DialogBuilder.ProgressHandler();
+            DialogBuilder.progressDialog(MainActivity.this).progressHandler(progressHandler).show();
+            final Handler handler = new Handler() {
+              @Override
+              public void handleMessage(Message msg) {
+                super.handleMessage(msg);
+                int progress = msg.arg1;
+                progressHandler.setProgress(progress);
+              }
+            };
+            new Thread(new Runnable() {
+              @Override
+              public void run() {
+                for (int i = 1; i <= 100; i++) {
+                  Message message = new Message();
+                  message.arg1 = i;
+                  handler.sendMessage(message);
+                  try {
+                    Thread.sleep(100);
+                  } catch (InterruptedException e) {
+                    e.printStackTrace();
+                  }
+                }
+              }
+            }).start();
             break;
         }
       }
