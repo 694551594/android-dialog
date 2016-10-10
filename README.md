@@ -13,7 +13,7 @@
 [![](https://raw.githubusercontent.com/694551594/android-dialog/master/screenshots/截屏_20161010_140525.png)](https://raw.githubusercontent.com/694551594/android-dialog/master/screenshots/截屏_20161010_140525.png)
 
 #gradle配置方式
-`compile 'cn.yhq:android-dialog:1.0'`
+`compile 'cn.yhq:android-dialog:1.1'`
 #使用方法
 创建对话框的方式有两种：
 #### 1、使用DialogBuilder直接创建，这种方式创建的对话框不会保存状态，即当屏幕旋转等导致的activity重建，对话框会消失。
