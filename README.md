@@ -1,18 +1,19 @@
 # android-dialog
 
-此框架提供五种对话框的显示，并支持对话框的扩展，目的是为了提供对话框的统一管理，并提供对话框显示的公共接口。
+此框架提供六种对话框的显示，并支持对话框的扩展，目的是为了提供对话框的统一管理，并提供对话框显示的公共接口。
 
 - LoadingDialog：正在加载对话框
 - MessageDialog：消息对话框，只有确定按钮
 - AlertDialog：确认对话框，有确认和取消按钮
 - ListDialog：普通选择、单选或者多选对话框
 - EditTextDialog：有一个editText和checkbox的对话框
+- ProgressDialog：一个可以显示具体进度的对话框
 - 支持扩展的ContentViewDialog
 
 [![](https://raw.githubusercontent.com/694551594/android-dialog/master/screenshots/截屏_20161010_140525.png)](https://raw.githubusercontent.com/694551594/android-dialog/master/screenshots/截屏_20161010_140525.png)
 
 #gradle配置方式
-`compile 'cn.yhq:android-dialog:1.0'`
+`compile 'cn.yhq:android-dialog:1.1'`
 #使用方法
 创建对话框的方式有两种：
 #### 1、使用DialogBuilder直接创建，这种方式创建的对话框不会保存状态，即当屏幕旋转等导致的activity重建，对话框会消失。
@@ -21,6 +22,16 @@
 DialogBuilder.loadingDialog(this).show();
 ```
 [![](https://raw.githubusercontent.com/694551594/android-dialog/master/screenshots/截屏_20161010_140528.png)](https://raw.githubusercontent.com/694551594/android-dialog/master/screenshots/截屏_20161010_140528.png)
+#####显示一个进度对话框
+这个地方需要注意的是需要设置一个ProgressHandler，用于主动更新对话框的进度：
+```java
+DialogBuilder.ProgressHandler progressHandler =
+                new DialogBuilder.ProgressHandler();
+ DialogBuilder.progressDialog(MainActivity.this).progressHandler(progressHandler).show();
+ // 更新进度
+progressHandler.setProgress(progress);
+```
+[![](https://raw.githubusercontent.com/694551594/android-dialog/master/screenshots/截屏_20161010_175735.png)](https://raw.githubusercontent.com/694551594/android-dialog/master/screenshots/截屏_20161010_175735.png)
 #####显示一个消息对话框
 ```java
 DialogBuilder.messageDialog(MainActivity.this).setMessage("消息对话框").show();
