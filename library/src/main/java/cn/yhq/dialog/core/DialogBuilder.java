@@ -33,7 +33,7 @@ public final class DialogBuilder {
 
   private CharSequence[] choiceItems;
   private ListAdapter choiceAdapter;
-  private int choiceItem;
+  private int checkedItem;
   private int[] checkedItems;
   private View contentView;
   private int contentViewResId;
@@ -186,12 +186,34 @@ public final class DialogBuilder {
     return this;
   }
 
+  /**
+   * 使用getCheckedItem替代
+   *
+   * @return
+     */
+  @Deprecated
   public int getChoiceItem() {
-    return choiceItem;
+    return getCheckedItem();
   }
 
-  public DialogBuilder setChoiceItem(int choiceItem) {
-    this.choiceItem = choiceItem;
+  /**
+   * 使用setCheckedItem替代
+   *
+   * @param checkedItem
+   * @return
+     */
+  @Deprecated
+  public DialogBuilder setChoiceItem(int checkedItem) {
+    this.setCheckedItem(checkedItem);
+    return this;
+  }
+
+  public int getCheckedItem() {
+    return checkedItem;
+  }
+
+  public DialogBuilder setCheckedItem(int checkedItem) {
+    this.checkedItem = checkedItem;
     return this;
   }
 

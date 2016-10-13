@@ -60,7 +60,7 @@ public class ListDialogProvider extends DialogProvider {
       // 这种方式点击确定按钮才会关闭
       final int[] checkedItems = new int[1];
       if (dialogBuilder.getChoiceItems() != null) {
-        builder.setSingleChoiceItems(dialogBuilder.getChoiceItems(), dialogBuilder.getChoiceItem(),
+        builder.setSingleChoiceItems(dialogBuilder.getChoiceItems(), dialogBuilder.getCheckedItem(),
             new DialogInterface.OnClickListener() {
               @Override
               public void onClick(DialogInterface dialog, int which) {
