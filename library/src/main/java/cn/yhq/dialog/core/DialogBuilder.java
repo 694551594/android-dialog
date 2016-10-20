@@ -2,6 +2,7 @@ package cn.yhq.dialog.core;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.os.Bundle;
 import android.text.Html;
 import android.text.TextUtils;
 import android.view.View;
@@ -48,6 +49,7 @@ public final class DialogBuilder {
   private OnChoiceListener onChoiceListener;
   private OnMultiChoiceListener onMultiChoiceListener;
   private OnProgressListener onProgressListener;
+  private OnStateChangeListener onStateChangeListener;
 
   public final static int TYPE_CHOICE_NORMAL = 0;
   public final static int TYPE_CHOICE_SINGLE = 1;
@@ -98,6 +100,12 @@ public final class DialogBuilder {
 
   public static DialogBuilder otherDialog(Context context) {
     return builder(context, DIALOG_OTHER);
+  }
+
+  public interface OnStateChangeListener {
+    void onSaveInstanceState(IDialog dialog, Bundle bundle);
+
+    void restoreInstanceState(IDialog dialog, Bundle bundle);
   }
 
   public interface OnProgressListener {
@@ -189,6 +197,15 @@ public final class DialogBuilder {
     if (this.getChoiceType() == TYPE_CHOICE_MULTI) {
       throw new IllegalArgumentException("多选对话框不可以设置adapter");
     }
+    return this;
+  }
+
+  public OnStateChangeListener getOnStateChangeListener() {
+    return onStateChangeListener;
+  }
+
+  public DialogBuilder setOnStateChangeListener(OnStateChangeListener onStateChangeListener) {
+    this.onStateChangeListener = onStateChangeListener;
     return this;
   }
 
