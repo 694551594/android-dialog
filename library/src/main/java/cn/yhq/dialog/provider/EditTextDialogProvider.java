@@ -35,9 +35,7 @@ public class EditTextDialogProvider extends DialogProvider {
         .setNegativeButton(dialogBuilder.getNegativeButtonText(),
             dialogBuilder.getOnNegativeButtonClickListener())
         .setPositiveButton(dialogBuilder.getPositiveButtonText(),
-            new PositiveButtonClickListener(dialogBuilder, editText, checkBox))
-        .setOnCancelListener(dialogBuilder.getOnCancelListener())
-        .setOnDismissListener(dialogBuilder.getOnDismissListener()).setView(contentView);
+            new PositiveButtonClickListener(dialogBuilder, editText, checkBox)).setView(contentView);
     // checkbox默认隐藏
     checkBox.setVisibility(View.GONE);
     // 调用控件初始化接口

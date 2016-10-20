@@ -20,8 +20,6 @@ public class AlertDialogProvider extends DialogProvider {
         .setNegativeButton(dialogBuilder.getNegativeButtonText(),
             dialogBuilder.getOnNegativeButtonClickListener())
         .setPositiveButton(dialogBuilder.getPositiveButtonText(),
-            dialogBuilder.getOnPositiveButtonClickListener())
-        .setOnCancelListener(dialogBuilder.getOnCancelListener())
-        .setOnDismissListener(dialogBuilder.getOnDismissListener()).create();
+            dialogBuilder.getOnPositiveButtonClickListener()).create();
   }
 }

@@ -3,6 +3,7 @@ package cn.yhq.dialog.core;
 import android.util.SparseArray;
 
 import cn.yhq.dialog.provider.AlertDialogProvider;
+import cn.yhq.dialog.provider.BottomSheetDialogProvider;
 import cn.yhq.dialog.provider.ContentViewDialogProvider;
 import cn.yhq.dialog.provider.EditTextDialogProvider;
 import cn.yhq.dialog.provider.ListDialogProvider;
@@ -10,6 +11,7 @@ import cn.yhq.dialog.provider.LoadingDialogProvider;
 import cn.yhq.dialog.provider.ProgressDialogProvider;
 
 import static cn.yhq.dialog.core.DialogBuilder.DIALOG_ALERT;
+import static cn.yhq.dialog.core.DialogBuilder.DIALOG_BOTTOM_SHEET;
 import static cn.yhq.dialog.core.DialogBuilder.DIALOG_EDIT_TEXT;
 import static cn.yhq.dialog.core.DialogBuilder.DIALOG_LIST;
 import static cn.yhq.dialog.core.DialogBuilder.DIALOG_LOADING;
@@ -34,6 +36,7 @@ public final class DialogFactory {
     register(DIALOG_LIST, new ListDialogProvider());
     register(DIALOG_EDIT_TEXT, new EditTextDialogProvider());
     register(DIALOG_PROGRESS, new ProgressDialogProvider());
+    register(DIALOG_BOTTOM_SHEET, new BottomSheetDialogProvider());
   }
 
   public static void register(int dialogType, IDialogProvider dialogProvider) {

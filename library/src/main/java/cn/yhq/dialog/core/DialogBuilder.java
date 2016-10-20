@@ -42,6 +42,7 @@ public final class DialogBuilder {
   private DialogInterface.OnClickListener onChoiceClickListener;
   private DialogInterface.OnCancelListener onCancelListener;
   private DialogInterface.OnDismissListener onDismissListener;
+  private DialogInterface.OnShowListener onShowListener;
   private OnEditTextDialogListener onEditTextDialogListener;
   private DialogInterface.OnMultiChoiceClickListener onMultiChoiceClickListener;
   private OnChoiceListener onChoiceListener;
@@ -61,6 +62,7 @@ public final class DialogBuilder {
   public final static int DIALOG_LIST = 3;
   public final static int DIALOG_EDIT_TEXT = 4;
   public final static int DIALOG_PROGRESS = 5;
+  public final static int DIALOG_BOTTOM_SHEET = 6;
 
   public static DialogBuilder builder(Context context, int dialogType) {
     return new DialogBuilder(context, dialogType);
@@ -72,6 +74,10 @@ public final class DialogBuilder {
 
   public static DialogBuilder messageDialog(Context context) {
     return builder(context, DIALOG_MESSAGE);
+  }
+
+  public static DialogBuilder bottomSheetDialog(Context context) {
+    return builder(context, DIALOG_BOTTOM_SHEET);
   }
 
   public static DialogBuilder alertDialog(Context context) {
@@ -190,7 +196,7 @@ public final class DialogBuilder {
    * 使用getCheckedItem替代
    *
    * @return
-     */
+   */
   @Deprecated
   public int getChoiceItem() {
     return getCheckedItem();
@@ -201,7 +207,7 @@ public final class DialogBuilder {
    *
    * @param checkedItem
    * @return
-     */
+   */
   @Deprecated
   public DialogBuilder setChoiceItem(int checkedItem) {
     this.setCheckedItem(checkedItem);
@@ -384,6 +390,15 @@ public final class DialogBuilder {
 
   public DialogInterface.OnDismissListener getOnDismissListener() {
     return onDismissListener;
+  }
+
+  public DialogBuilder setOnShowListener(DialogInterface.OnShowListener onShowListener) {
+    this.onShowListener = onShowListener;
+    return this;
+  }
+
+  public DialogInterface.OnShowListener getOnShowListener() {
+    return onShowListener;
   }
 
   public DialogBuilder setOnDismissListener(DialogInterface.OnDismissListener onDismissListener) {

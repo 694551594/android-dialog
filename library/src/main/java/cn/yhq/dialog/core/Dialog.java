@@ -6,6 +6,7 @@ package cn.yhq.dialog.core;
 
 class Dialog implements IDialog {
   private android.app.Dialog dialog;
+  private DialogBuilder dialogBuilder;
 
   Dialog(android.app.Dialog dialog) {
     this.dialog = dialog;
@@ -27,5 +28,13 @@ class Dialog implements IDialog {
   @Override
   public android.app.Dialog getInnerDialog() {
     return this.dialog;
+  }
+
+  void setDialogBuilder(DialogBuilder dialogBuilder) {
+    this.dialogBuilder = dialogBuilder;
+  }
+
+  DialogBuilder getDialogBuilder() {
+    return dialogBuilder;
   }
 }

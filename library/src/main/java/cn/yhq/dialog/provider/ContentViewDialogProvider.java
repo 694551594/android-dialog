@@ -23,9 +23,7 @@ public class ContentViewDialogProvider extends DialogProvider {
         .setNegativeButton(dialogBuilder.getNegativeButtonText(),
             dialogBuilder.getOnNegativeButtonClickListener())
         .setPositiveButton(dialogBuilder.getPositiveButtonText(),
-            dialogBuilder.getOnPositiveButtonClickListener())
-        .setOnCancelListener(dialogBuilder.getOnCancelListener())
-        .setOnDismissListener(dialogBuilder.getOnDismissListener());
+            dialogBuilder.getOnPositiveButtonClickListener());
 
     TypedValue typedValue = new TypedValue();
     dialogBuilder.getContext().getTheme().resolveAttribute(R.attr.dialogPreferredPadding,

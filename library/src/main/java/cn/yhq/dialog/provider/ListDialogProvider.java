@@ -18,8 +18,7 @@ public class ListDialogProvider extends DialogProvider {
   @Override
   public Dialog createInnerDialog(final DialogBuilder dialogBuilder) {
     AlertDialog.Builder builder = new AlertDialog.Builder(dialogBuilder.getContext())
-        .setTitle(dialogBuilder.getTitle()).setOnCancelListener(dialogBuilder.getOnCancelListener())
-        .setOnDismissListener(dialogBuilder.getOnDismissListener());
+        .setTitle(dialogBuilder.getTitle());
     final DialogInterface.OnClickListener onChoiceClickListener =
         dialogBuilder.getOnChoiceClickListener();
     final DialogBuilder.OnChoiceListener onChoiceListener = dialogBuilder.getOnChoiceListener();

@@ -38,8 +38,7 @@ public class ProgressDialogProvider extends DialogProvider {
       }
     });
     Dialog dialog = new AlertDialog.Builder(dialogBuilder.getContext()).setView(contentView)
-        .setOnCancelListener(dialogBuilder.getOnCancelListener())
-        .setOnDismissListener(dialogBuilder.getOnDismissListener()).create();
+        .create();
     Window window = dialog.getWindow();
     window.setBackgroundDrawableResource(android.R.color.transparent);
     return dialog;

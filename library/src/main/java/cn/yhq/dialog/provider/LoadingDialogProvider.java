@@ -18,8 +18,7 @@ public class LoadingDialogProvider extends DialogProvider {
   public Dialog createInnerDialog(DialogBuilder dialogBuilder) {
     Dialog dialog =
         new AlertDialog.Builder(dialogBuilder.getContext()).setView(R.layout.comm_dialog_loading)
-            .setOnCancelListener(dialogBuilder.getOnCancelListener())
-            .setOnDismissListener(dialogBuilder.getOnDismissListener()).create();
+            .create();
     Window window = dialog.getWindow();
     window.setBackgroundDrawableResource(android.R.color.transparent);
     return dialog;
