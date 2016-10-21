@@ -63,9 +63,11 @@ public class DialogFragment extends android.support.v4.app.DialogFragment {
   @Override
   public LayoutInflater getLayoutInflater(Bundle savedInstanceState) {
     LayoutInflater layoutInflater = super.getLayoutInflater(savedInstanceState);
-    DialogBuilder.OnStateChangeListener onStateChangeListener = getOnStateChangeListener();
-    if (onStateChangeListener != null) {
-      onStateChangeListener.onRestoreInstanceState(dialog, savedInstanceState);
+    if (savedInstanceState != null) {
+      DialogBuilder.OnStateChangeListener onStateChangeListener = getOnStateChangeListener();
+      if (onStateChangeListener != null) {
+        onStateChangeListener.onRestoreInstanceState(dialog, savedInstanceState);
+      }
     }
     return layoutInflater;
   }
