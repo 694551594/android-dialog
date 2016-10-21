@@ -38,13 +38,8 @@ public class ContentViewDialogProvider extends DialogProvider {
     int DIALOG_SPACING_RIGHT = DIALOG_SPACING_LEFT;
 
     FrameLayout frameLayout = new FrameLayout(dialogBuilder.getContext());
-    FrameLayout.LayoutParams layoutParams = dialogBuilder.getLayoutParams();
-
-    if (layoutParams == null) {
-      layoutParams = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.WRAP_CONTENT);
-    }
-
-    frameLayout.setLayoutParams(layoutParams);
+    frameLayout.setLayoutParams(new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT,
+        FrameLayout.LayoutParams.MATCH_PARENT));
 
     if (dialogBuilder.getContentViewResId() != 0) {
       dialogBuilder.setContentView(
@@ -52,6 +47,12 @@ public class ContentViewDialogProvider extends DialogProvider {
     }
 
     if (dialogBuilder.getContentView() != null) {
+      FrameLayout.LayoutParams layoutParams = dialogBuilder.getLayoutParams();
+
+      if (layoutParams == null) {
+        layoutParams = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT,
+                FrameLayout.LayoutParams.WRAP_CONTENT);
+      }
       frameLayout.addView(dialogBuilder.getContentView(), layoutParams);
     }
 

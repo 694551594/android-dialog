@@ -19,19 +19,21 @@ public class BottomSheetDialogProvider extends DialogProvider {
     BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(dialogBuilder.getContext());
 
     FrameLayout frameLayout = new FrameLayout(dialogBuilder.getContext());
-    FrameLayout.LayoutParams layoutParams = dialogBuilder.getLayoutParams();
+    frameLayout.setLayoutParams(new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT,
+            FrameLayout.LayoutParams.MATCH_PARENT));
 
-    if (layoutParams == null) {
-      layoutParams = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.WRAP_CONTENT);
-    }
-
-    frameLayout.setLayoutParams(layoutParams);
     if (dialogBuilder.getContentViewResId() != 0) {
       dialogBuilder.setContentView(
               View.inflate(dialogBuilder.getContext(), dialogBuilder.getContentViewResId(), null));
     }
 
     if (dialogBuilder.getContentView() != null) {
+      FrameLayout.LayoutParams layoutParams = dialogBuilder.getLayoutParams();
+
+      if (layoutParams == null) {
+        layoutParams = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT,
+                FrameLayout.LayoutParams.WRAP_CONTENT);
+      }
       frameLayout.addView(dialogBuilder.getContentView(), layoutParams);
     }
 
