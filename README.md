@@ -145,6 +145,14 @@ DialogBuilder.editTextDialog(MainActivity.this)
                 }).show();
 ```
 [![](https://raw.githubusercontent.com/694551594/android-dialog/master/screenshots/截屏_20161010_140553.png)](https://raw.githubusercontent.com/694551594/android-dialog/master/screenshots/截屏_20161010_140553.png)
+#####显示一个BottomSheet对话框
+```java
+  View sheetView = View.inflate(MainActivity.this, android.R.layout.simple_list_item_1, null);
+  TextView sheetViewTextView = (TextView) sheetView.findViewById(android.R.id.text1);
+  sheetViewTextView.setText("自定义视图");
+  DialogBuilder.bottomSheetDialog(MainActivity.this).setContentView(sheetView).show();
+```
+[![](https://raw.githubusercontent.com/694551594/android-dialog/master/screenshots/截屏_20161021_113255.png)](https://raw.githubusercontent.com/694551594/android-dialog/master/screenshots/截屏_20161021_113255.png)
 #####显示一个自定义对话框
 ```java
 View customView =
