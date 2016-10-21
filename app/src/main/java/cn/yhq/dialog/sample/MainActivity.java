@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -180,7 +181,10 @@ public class MainActivity extends BaseActivity {
                 View.inflate(MainActivity.this, android.R.layout.simple_list_item_1, null);
             TextView textView = (TextView) customView.findViewById(android.R.id.text1);
             textView.setText("自定义视图");
-            DialogBuilder.otherDialog(MainActivity.this).setContentView(customView).show();
+            DialogBuilder.otherDialog(MainActivity.this)
+                .setContentView(customView,
+                    new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, 800))
+                .show();
             break;
           case 8:
             final DialogBuilder.ProgressHandler progressHandler =
@@ -215,7 +219,10 @@ public class MainActivity extends BaseActivity {
                 View.inflate(MainActivity.this, android.R.layout.simple_list_item_1, null);
             TextView sheetViewTextView = (TextView) sheetView.findViewById(android.R.id.text1);
             sheetViewTextView.setText("自定义视图");
-            DialogBuilder.bottomSheetDialog(MainActivity.this).setContentView(sheetView).show();
+            DialogBuilder.bottomSheetDialog(MainActivity.this)
+                .setContentView(sheetView,
+                    new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, 800))
+                .show();
             break;
         }
       }

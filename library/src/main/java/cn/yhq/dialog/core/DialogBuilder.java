@@ -8,6 +8,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ListAdapter;
 
 import java.util.List;
@@ -38,6 +39,7 @@ public final class DialogBuilder {
   private int[] checkedItems;
   private View contentView;
   private int contentViewResId;
+  private FrameLayout.LayoutParams layoutParams;
   private DialogInterface.OnClickListener onPositiveButtonClickListener;
   private DialogInterface.OnClickListener onNegativeButtonClickListener;
   private DialogInterface.OnClickListener onChoiceClickListener;
@@ -170,12 +172,25 @@ public final class DialogBuilder {
     return this;
   }
 
+  public DialogBuilder setContentViewResId(int contentViewResId,
+      FrameLayout.LayoutParams layoutParams) {
+    this.contentViewResId = contentViewResId;
+    this.layoutParams = layoutParams;
+    return this;
+  }
+
   public View getContentView() {
     return contentView;
   }
 
   public DialogBuilder setContentView(View contentView) {
     this.contentView = contentView;
+    return this;
+  }
+
+  public DialogBuilder setContentView(View contentView, FrameLayout.LayoutParams layoutParams) {
+    this.contentView = contentView;
+    this.layoutParams = layoutParams;
     return this;
   }
 
@@ -318,6 +333,10 @@ public final class DialogBuilder {
   public DialogBuilder setContext(Context context) {
     this.context = context;
     return this;
+  }
+
+  public FrameLayout.LayoutParams getLayoutParams() {
+    return layoutParams;
   }
 
   public DialogBuilder setTitle(int title) {
