@@ -61,7 +61,7 @@ public class MainActivity extends BaseActivity {
     ListView listView = (ListView) this.findViewById(R.id.listview);
     final SimpleListAdapter<String> adapter = SimpleListAdapter.create(this,
         new String[] {"正在载入对话框", "消息对话框", "确认对话框", "普通选择对话框", "单选对话框", "多选对话框", "文本输入对话框", "自定义对话框",
-            "进度对话框"},
+            "进度对话框", "bottom sheet对话框"},
         android.R.layout.simple_list_item_1, new SimpleListAdapter.IItemViewSetup<String>() {
           @Override
           public void setupView(ViewHolder viewHolder, int position, String entity) {
@@ -209,6 +209,13 @@ public class MainActivity extends BaseActivity {
                 }
               }
             }).start();
+            break;
+          case 9:
+            View sheetView =
+                View.inflate(MainActivity.this, android.R.layout.simple_list_item_1, null);
+            TextView sheetViewTextView = (TextView) sheetView.findViewById(android.R.id.text1);
+            sheetViewTextView.setText("自定义视图");
+            DialogBuilder.bottomSheetDialog(MainActivity.this).setContentView(sheetView).show();
             break;
         }
       }

@@ -105,7 +105,7 @@ public final class DialogBuilder {
   public interface OnStateChangeListener {
     void onSaveInstanceState(IDialog dialog, Bundle bundle);
 
-    void restoreInstanceState(IDialog dialog, Bundle bundle);
+    void onRestoreInstanceState(IDialog dialog, Bundle bundle);
   }
 
   public interface OnProgressListener {

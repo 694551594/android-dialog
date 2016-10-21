@@ -20,6 +20,6 @@ public class BottomSheetDialogProvider extends DialogProvider {
     } else {
       bottomSheetDialog.setContentView(dialogBuilder.getContentView());
     }
-    return null;
+    return bottomSheetDialog;
   }
 }
