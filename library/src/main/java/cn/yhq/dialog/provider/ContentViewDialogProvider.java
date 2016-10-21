@@ -38,14 +38,21 @@ public class ContentViewDialogProvider extends DialogProvider {
     int DIALOG_SPACING_RIGHT = DIALOG_SPACING_LEFT;
 
     FrameLayout frameLayout = new FrameLayout(dialogBuilder.getContext());
-    frameLayout.setLayoutParams(dialogBuilder.getLayoutParams());
+    FrameLayout.LayoutParams layoutParams = dialogBuilder.getLayoutParams();
+
+    if (layoutParams == null) {
+      layoutParams = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.WRAP_CONTENT);
+    }
+
+    frameLayout.setLayoutParams(layoutParams);
+
     if (dialogBuilder.getContentViewResId() != 0) {
       dialogBuilder.setContentView(
           View.inflate(dialogBuilder.getContext(), dialogBuilder.getContentViewResId(), null));
     }
 
     if (dialogBuilder.getContentView() != null) {
-      frameLayout.addView(dialogBuilder.getContentView(), dialogBuilder.getLayoutParams());
+      frameLayout.addView(dialogBuilder.getContentView(), layoutParams);
     }
 
     builder.setView(frameLayout, DIALOG_SPACING_LEFT, DIALOG_SPACING_TOP, DIALOG_SPACING_RIGHT,
