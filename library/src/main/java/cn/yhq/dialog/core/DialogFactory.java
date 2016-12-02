@@ -4,17 +4,23 @@ import android.util.SparseArray;
 
 import cn.yhq.dialog.provider.AlertDialogProvider;
 import cn.yhq.dialog.provider.BottomSheetDialogProvider;
+import cn.yhq.dialog.provider.CircleProgressDialogProvider;
 import cn.yhq.dialog.provider.ContentViewDialogProvider;
 import cn.yhq.dialog.provider.EditTextDialogProvider;
 import cn.yhq.dialog.provider.ListDialogProvider;
-import cn.yhq.dialog.provider.LoadingDialogProvider;
+import cn.yhq.dialog.provider.LoadingDialogProvider0;
+import cn.yhq.dialog.provider.LoadingDialogProvider1;
+import cn.yhq.dialog.provider.LoadingDialogProvider2;
 import cn.yhq.dialog.provider.ProgressDialogProvider;
 
 import static cn.yhq.dialog.core.DialogBuilder.DIALOG_ALERT;
 import static cn.yhq.dialog.core.DialogBuilder.DIALOG_BOTTOM_SHEET;
+import static cn.yhq.dialog.core.DialogBuilder.DIALOG_CIRCLE_PROGRESS;
 import static cn.yhq.dialog.core.DialogBuilder.DIALOG_EDIT_TEXT;
 import static cn.yhq.dialog.core.DialogBuilder.DIALOG_LIST;
-import static cn.yhq.dialog.core.DialogBuilder.DIALOG_LOADING;
+import static cn.yhq.dialog.core.DialogBuilder.DIALOG_LOADING0;
+import static cn.yhq.dialog.core.DialogBuilder.DIALOG_LOADING1;
+import static cn.yhq.dialog.core.DialogBuilder.DIALOG_LOADING2;
 import static cn.yhq.dialog.core.DialogBuilder.DIALOG_MESSAGE;
 import static cn.yhq.dialog.core.DialogBuilder.DIALOG_OTHER;
 import static cn.yhq.dialog.core.DialogBuilder.DIALOG_PROGRESS;
@@ -32,11 +38,14 @@ public final class DialogFactory {
     register(DIALOG_OTHER, new ContentViewDialogProvider());
     register(DIALOG_MESSAGE, new AlertDialogProvider());
     register(DIALOG_ALERT, new AlertDialogProvider());
-    register(DIALOG_LOADING, new LoadingDialogProvider());
+    register(DIALOG_LOADING0, new LoadingDialogProvider0());
+    register(DIALOG_LOADING1, new LoadingDialogProvider1());
+    register(DIALOG_LOADING2, new LoadingDialogProvider2());
     register(DIALOG_LIST, new ListDialogProvider());
     register(DIALOG_EDIT_TEXT, new EditTextDialogProvider());
-    register(DIALOG_PROGRESS, new ProgressDialogProvider());
+    register(DIALOG_CIRCLE_PROGRESS, new CircleProgressDialogProvider());
     register(DIALOG_BOTTOM_SHEET, new BottomSheetDialogProvider());
+    register(DIALOG_PROGRESS, new ProgressDialogProvider());
   }
 
   public static void register(int dialogType, IDialogProvider dialogProvider) {

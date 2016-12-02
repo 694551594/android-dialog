@@ -62,11 +62,14 @@ public final class DialogBuilder {
   public final static int DIALOG_OTHER = -1;
   public final static int DIALOG_MESSAGE = 0;
   public final static int DIALOG_ALERT = 1;
-  public final static int DIALOG_LOADING = 2;
+  public final static int DIALOG_LOADING0 = 2;
   public final static int DIALOG_LIST = 3;
   public final static int DIALOG_EDIT_TEXT = 4;
-  public final static int DIALOG_PROGRESS = 5;
+  public final static int DIALOG_CIRCLE_PROGRESS = 5;
   public final static int DIALOG_BOTTOM_SHEET = 6;
+  public final static int DIALOG_PROGRESS = 7;
+  public final static int DIALOG_LOADING1 = 8;
+  public final static int DIALOG_LOADING2 = 9;
 
   public static DialogBuilder builder(Context context, int dialogType) {
     return new DialogBuilder(context, dialogType);
@@ -74,6 +77,10 @@ public final class DialogBuilder {
 
   public static DialogBuilder progressDialog(Context context) {
     return builder(context, DIALOG_PROGRESS);
+  }
+
+  public static DialogBuilder progressCircleDialog(Context context) {
+    return builder(context, DIALOG_CIRCLE_PROGRESS);
   }
 
   public static DialogBuilder messageDialog(Context context) {
@@ -92,8 +99,21 @@ public final class DialogBuilder {
     return builder(context, DIALOG_LIST);
   }
 
+  @Deprecated
   public static DialogBuilder loadingDialog(Context context) {
-    return builder(context, DIALOG_LOADING);
+    return loadingDialog0(context);
+  }
+
+  public static DialogBuilder loadingDialog0(Context context) {
+    return builder(context, DIALOG_LOADING0);
+  }
+
+  public static DialogBuilder loadingDialog1(Context context) {
+    return builder(context, DIALOG_LOADING1);
+  }
+
+  public static DialogBuilder loadingDialog2(Context context) {
+    return builder(context, DIALOG_LOADING2);
   }
 
   public static DialogBuilder editTextDialog(Context context) {

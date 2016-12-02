@@ -12,7 +12,7 @@ import cn.yhq.dialog.core.DialogProvider;
  * Created by Yanghuiqiang on 2016/10/8.
  */
 
-public class LoadingDialogProvider extends DialogProvider {
+public class LoadingDialogProvider0 extends DialogProvider {
 
   @Override
   public Dialog createInnerDialog(DialogBuilder dialogBuilder) {

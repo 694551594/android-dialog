@@ -11,13 +11,12 @@ import cn.yhq.dialog.core.DialogProvider;
  * Created by Yanghuiqiang on 2016/12/2.
  */
 
-public class ProgressDialogProvider extends DialogProvider {
+public class LoadingDialogProvider2 extends DialogProvider {
 
   @Override
   public Dialog createInnerDialog(DialogBuilder dialogBuilder) {
     final ProgressDialog dialog = new ProgressDialog(dialogBuilder.getContext());
-    dialog.setMax(100);
-    dialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+    dialog.setIndeterminate(false);
     if (dialogBuilder.getMessage() != null) {
       dialog.setMessage(dialogBuilder.getMessage());
     } else {
