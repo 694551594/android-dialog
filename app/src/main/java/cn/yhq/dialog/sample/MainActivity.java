@@ -15,9 +15,8 @@ import android.widget.Toast;
 
 import java.util.Arrays;
 
-import cn.yhq.adapter.core.ViewHolder;
-import cn.yhq.adapter.list.SimpleListAdapter;
-import cn.yhq.dialog.BaseActivity;
+import cn.yhq.adapter.list.SimpleStringListAdapter;
+import cn.yhq.base.BaseActivity;
 import cn.yhq.dialog.core.DialogBuilder;
 import cn.yhq.dialog.core.IDialog;
 
@@ -57,18 +56,13 @@ public class MainActivity extends BaseActivity {
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_main);
+
+    this.getSupportActionBar().setDisplayHomeAsUpEnabled(false);
 
     ListView listView = (ListView) this.findViewById(R.id.listview);
-    final SimpleListAdapter<String> adapter = SimpleListAdapter.create(this,
-        new String[] {"正在载入对话框", "消息对话框", "确认对话框", "普通选择对话框", "单选对话框", "多选对话框", "文本输入对话框", "自定义对话框",
-            "进度对话框", "bottom sheet对话框"},
-        android.R.layout.simple_list_item_1, new SimpleListAdapter.IItemViewSetup<String>() {
-          @Override
-          public void setupView(ViewHolder viewHolder, int position, String entity) {
-            viewHolder.bindTextData(android.R.id.text1, entity);
-          }
-        });
+    final SimpleStringListAdapter adapter = SimpleStringListAdapter.create(this,
+        new String[] {"载入对话框0", "消息对话框", "确认对话框", "普通选择对话框", "单选对话框", "多选对话框", "文本输入对话框", "自定义对话框",
+            "圆形进度对话框", "bottom sheet对话框", "普通进度对话框", "载入对话框1", "载入对话框2"});
 
     listView.setAdapter(adapter);
     final String[] list = {"选择项1", "选择项2", "选择项3", "选择项4", "选择项5", "选择项6"};
@@ -77,7 +71,7 @@ public class MainActivity extends BaseActivity {
       public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         switch (position) {
           case 0:
-            DialogBuilder.loadingDialog(MainActivity.this).show();
+            DialogBuilder.loadingDialog0(MainActivity.this).show();
             break;
           case 1:
             DialogBuilder.messageDialog(MainActivity.this).setMessage("消息对话框").show();
@@ -189,7 +183,8 @@ public class MainActivity extends BaseActivity {
           case 8:
             final DialogBuilder.ProgressHandler progressHandler =
                 new DialogBuilder.ProgressHandler();
-            DialogBuilder.progressDialog(MainActivity.this).progressHandler(progressHandler).show();
+            DialogBuilder.progressCircleDialog(MainActivity.this).progressHandler(progressHandler)
+                .show();
             final Handler handler = new Handler() {
               @Override
               public void handleMessage(Message msg) {
@@ -224,11 +219,54 @@ public class MainActivity extends BaseActivity {
                     new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, 800))
                 .show();
             break;
+          case 10:
+            final DialogBuilder.ProgressHandler progressHandler1 =
+                new DialogBuilder.ProgressHandler();
+            DialogBuilder.progressDialog(MainActivity.this).progressHandler(progressHandler1)
+                .show();
+            final Handler handler1 = new Handler() {
+              @Override
+              public void handleMessage(Message msg) {
+                super.handleMessage(msg);
+                int progress = msg.arg1;
+                progressHandler1.setProgress(progress);
+              }
+            };
+            new Thread(new Runnable() {
+              @Override
+              public void run() {
+                for (int i = 1; i <= 100; i++) {
+                  Message message = new Message();
+                  message.arg1 = i;
+                  handler1.sendMessage(message);
+                  try {
+                    Thread.sleep(100);
+                  } catch (InterruptedException e) {
+                    e.printStackTrace();
+                  }
+                }
+              }
+            }).start();
+            break;
+          case 11:
+            DialogBuilder.loadingDialog1(MainActivity.this).show();
+            break;
+          case 12:
+            DialogBuilder.loadingDialog2(MainActivity.this).show();
+            break;
         }
       }
     });
   }
 
+  @Override
+  protected int getContentViewLayoutId() {
+    return R.layout.activity_main;
+  }
 
-
+  @Override
+  protected void onConfig(Config config) {
+    super.onConfig(config);
+    config.setSwipeBackWrapper(false);
+  }
 }
