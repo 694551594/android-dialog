@@ -249,7 +249,12 @@ public class MainActivity extends BaseActivity {
             }).start();
             break;
           case 11:
-            DialogBuilder.loadingDialog1(MainActivity.this).show();
+            DialogBuilder.loadingDialog1(MainActivity.this).setPositiveButtonText("确定").setOnPositiveButtonClickListener(new DialogInterface.OnClickListener() {
+              @Override
+              public void onClick(DialogInterface dialogInterface, int i) {
+
+              }
+            }).show();
             break;
           case 12:
             DialogBuilder.loadingDialog2(MainActivity.this).show();

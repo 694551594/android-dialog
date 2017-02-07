@@ -151,18 +151,16 @@ public final class DialogBuilder {
   }
 
   public interface OnEditTextDialogListener {
-    void onEditTextCreated(EditText editText, CheckBox checkbox);
+    void onEditTextCreated(EditText editText);
 
     /**
      * 点击确定按钮的时候回调方法，返回true不会关闭对话框，返回false会关闭对话框
      *
      * @param editText
      * @param text
-     * @param checkbox
-     * @param checked
      * @return
      */
-    boolean onEditTextSelected(EditText editText, String text, CheckBox checkbox, boolean checked);
+    boolean onEditTextSelected(EditText editText, String text);
   }
 
   private DialogBuilder(Context context, int dialogType) {

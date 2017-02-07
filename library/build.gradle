@@ -30,7 +30,7 @@ publish {
     userOrg = '694551594'
     groupId = 'cn.yhq'
     artifactId = 'android-dialog'
-    publishVersion = '1.3'
+    publishVersion = '1.4'
     desc = 'android对话框'
     website = 'https://github.com/694551594/android-dialog'
 }
