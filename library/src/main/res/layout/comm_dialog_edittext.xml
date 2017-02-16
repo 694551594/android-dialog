@@ -8,6 +8,7 @@
         android:id="@+id/edittext"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="?attr/dialogPreferredPadding"
         android:layout_marginLeft="?attr/dialogPreferredPadding"
         android:layout_marginRight="?attr/dialogPreferredPadding">
     </EditText>
