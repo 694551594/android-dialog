@@ -46,12 +46,12 @@ public class EditTextDialogProvider extends DialogProvider {
 //    checkBoxLayout.setVisibility(checkBox.getVisibility());
         EditTextUtils.onTextToEnd(editText);
         AlertDialog innerDialog = builder.create();
-        innerDialog.setOnShowListener(new DialogInterface.OnShowListener() {
+        final DialogInterface.OnShowListener onShowListener = dialogBuilder.getOnShowListener();
+        dialogBuilder.setOnShowListener(new DialogInterface.OnShowListener() {
             @Override
             public void onShow(DialogInterface dialog) {
-                DialogInterface.OnShowListener listener = dialogBuilder.getOnShowListener();
-                if (listener != null) {
-                    listener.onShow(dialog);
+                if (onShowListener != null) {
+                    onShowListener.onShow(dialog);
                 }
                 // 对话框show后才可以获取到button的对象
                 ((AlertDialog) dialog).getButton(AlertDialog.BUTTON_POSITIVE)
