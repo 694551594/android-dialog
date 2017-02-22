@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.text.Html;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ListAdapter;
@@ -143,11 +142,11 @@ public final class DialogBuilder {
   }
 
   public interface OnChoiceListener {
-    void onChoiceItem(Object item);
+    void onChoiceItem(int index, Object item);
   }
 
   public interface OnMultiChoiceListener {
-    void onMultiChoiceItems(Object[] items);
+    void onMultiChoiceItems(List<Integer> indexs, Object[] items);
   }
 
   public interface OnEditTextDialogListener {

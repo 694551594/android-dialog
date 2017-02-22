@@ -17,8 +17,8 @@ public class ListDialogProvider extends DialogProvider {
 
   @Override
   public Dialog createInnerDialog(final DialogBuilder dialogBuilder) {
-    AlertDialog.Builder builder = new AlertDialog.Builder(dialogBuilder.getContext())
-        .setTitle(dialogBuilder.getTitle());
+    AlertDialog.Builder builder =
+        new AlertDialog.Builder(dialogBuilder.getContext()).setTitle(dialogBuilder.getTitle());
     final DialogInterface.OnClickListener onChoiceClickListener =
         dialogBuilder.getOnChoiceClickListener();
     final DialogBuilder.OnChoiceListener onChoiceListener = dialogBuilder.getOnChoiceListener();
@@ -38,7 +38,7 @@ public class ListDialogProvider extends DialogProvider {
               onChoiceClickListener.onClick(dialog, which);
             }
             if (onChoiceListener != null) {
-              onChoiceListener.onChoiceItem(dialogBuilder.getChoiceItems()[which]);
+              onChoiceListener.onChoiceItem(which, dialogBuilder.getChoiceItems()[which]);
             }
           }
         });
@@ -50,7 +50,7 @@ public class ListDialogProvider extends DialogProvider {
               onChoiceClickListener.onClick(dialog, which);
             }
             if (onChoiceListener != null) {
-              onChoiceListener.onChoiceItem(dialogBuilder.getChoiceAdapter().getItem(which));
+              onChoiceListener.onChoiceItem(which, dialogBuilder.getChoiceAdapter().getItem(which));
             }
           }
         });
@@ -89,10 +89,11 @@ public class ListDialogProvider extends DialogProvider {
               }
               if (onChoiceListener != null) {
                 if (dialogBuilder.getChoiceItems() != null) {
-                  onChoiceListener.onChoiceItem(dialogBuilder.getChoiceItems()[checkedItems[0]]);
+                  onChoiceListener.onChoiceItem(checkedItems[0],
+                      dialogBuilder.getChoiceItems()[checkedItems[0]]);
                 } else if (dialogBuilder.getChoiceAdapter() != null) {
-                  onChoiceListener
-                      .onChoiceItem(dialogBuilder.getChoiceAdapter().getItem(checkedItems[0]));
+                  onChoiceListener.onChoiceItem(checkedItems[0],
+                      dialogBuilder.getChoiceAdapter().getItem(checkedItems[0]));
                 }
 
               }
@@ -101,12 +102,14 @@ public class ListDialogProvider extends DialogProvider {
     } else if (dialogBuilder.getChoiceType() == DialogBuilder.TYPE_CHOICE_MULTI) {
       // 这种方式点击确定按钮才会关闭
       if (dialogBuilder.getChoiceItems() != null) {
+        final List<Integer> choiceIndexs = new ArrayList<>();
         final boolean items[] = new boolean[dialogBuilder.getChoiceItems().length];
         for (int i = 0; i < items.length; i++) {
           items[i] = false;
           for (int j = 0; j < dialogBuilder.getCheckedItems().length; j++) {
             if (i == dialogBuilder.getCheckedItems()[j]) {
               items[i] = true;
+              choiceIndexs.add(i);
               break;
             }
           }
@@ -116,6 +119,11 @@ public class ListDialogProvider extends DialogProvider {
               @Override
               public void onClick(DialogInterface dialog, int which, boolean isChecked) {
                 items[which] = isChecked;
+                if (isChecked) {
+                  choiceIndexs.add(which);
+                } else {
+                  choiceIndexs.remove(choiceIndexs.indexOf(which));
+                }
                 if (onMultiChoiceClickListener != null) {
                   onMultiChoiceClickListener.onClick(dialog, which, isChecked);
                 }
@@ -134,14 +142,15 @@ public class ListDialogProvider extends DialogProvider {
                       }
                     }
                     if (onMultiChoiceListener != null) {
-                      onMultiChoiceListener.onMultiChoiceItems(checkedItems.toArray());
+                      onMultiChoiceListener.onMultiChoiceItems(choiceIndexs,
+                          checkedItems.toArray());
                     }
                   }
                 });
       }
     }
     builder.setNegativeButton(dialogBuilder.getNegativeButtonText(),
-            dialogBuilder.getOnNegativeButtonClickListener());
+        dialogBuilder.getOnNegativeButtonClickListener());
     return builder.create();
   }
 
