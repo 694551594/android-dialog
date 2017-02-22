@@ -23,6 +23,5 @@ android {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile 'cn.yhq:android-base:1.5.0'
-    compile project(':library')
+    compile 'cn.yhq:android-base:1.7.0'
 }
