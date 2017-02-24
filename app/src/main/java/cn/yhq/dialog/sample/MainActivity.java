@@ -6,7 +6,6 @@ import android.os.Handler;
 import android.os.Message;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ListView;
@@ -155,15 +154,12 @@ public class MainActivity extends BaseActivity {
             DialogBuilder.editTextDialog(MainActivity.this)
                 .setOnEditTextDialogListener(new DialogBuilder.OnEditTextDialogListener() {
                   @Override
-                  public void onEditTextCreated(EditText editText, CheckBox checkbox) {
+                  public void onEditTextCreated(EditText editText) {
                     editText.setHint("请输入文本内容");
-                    checkbox.setVisibility(View.VISIBLE);
-                    checkbox.setText("checkbox文本");
                   }
 
                   @Override
-                  public boolean onEditTextSelected(EditText editText, String text,
-                      CheckBox checkbox, boolean checked) {
+                  public boolean onEditTextSelected(EditText editText, String text) {
                     Toast.makeText(MainActivity.this, editText.getText().toString(),
                         Toast.LENGTH_LONG).show();
                     return false;
