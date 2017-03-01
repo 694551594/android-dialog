@@ -164,8 +164,6 @@ public final class DialogBuilder {
 
   private DialogBuilder(Context context, int dialogType) {
     this.setContext(context);
-    this.setNegativeButtonText(context.getString(R.string.cancel));
-    this.setPositiveButtonText(context.getString(R.string.okay));
     this.setCancelable(true);
     this.setDialogType(dialogType);
   }
@@ -303,6 +301,7 @@ public final class DialogBuilder {
   public DialogBuilder setOnPositiveButtonClickListener(
       DialogInterface.OnClickListener onPositiveButtonClickListener) {
     this.onPositiveButtonClickListener = onPositiveButtonClickListener;
+    this.setPositiveButtonText(context.getString(R.string.okay));
     return this;
   }
 
@@ -319,6 +318,7 @@ public final class DialogBuilder {
   public DialogBuilder setOnNegativeButtonClickListener(
       DialogInterface.OnClickListener onNegativeButtonClickListener) {
     this.onNegativeButtonClickListener = onNegativeButtonClickListener;
+    this.setNegativeButtonText(context.getString(R.string.cancel));
     return this;
   }
 
@@ -402,9 +402,6 @@ public final class DialogBuilder {
    * @return the title
    */
   public String getTitle() {
-    if (TextUtils.isEmpty(title)) {
-      return context.getString(R.string.dialog_title);
-    }
     return title;
   }
 

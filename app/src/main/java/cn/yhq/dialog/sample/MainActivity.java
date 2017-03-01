@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.Arrays;
+import java.util.List;
 
 import cn.yhq.adapter.list.SimpleStringListAdapter;
 import cn.yhq.base.BaseActivity;
@@ -87,7 +88,7 @@ public class MainActivity extends BaseActivity {
                 .setOnChoiceListener(new DialogBuilder.OnChoiceListener() {
                   // 对话框关闭后回调的一个方法，返回选择的条目
                   @Override
-                  public void onChoiceItem(Object item) {
+                  public void onChoiceItem(int index, Object item) {
                     Toast.makeText(MainActivity.this, "最终选择了：" + item, Toast.LENGTH_LONG).show();
                   }
                 }).setOnChoiceClickListener(new DialogInterface.OnClickListener() {
@@ -105,7 +106,7 @@ public class MainActivity extends BaseActivity {
                 .setOnChoiceListener(new DialogBuilder.OnChoiceListener() {
                   // 对话框关闭后回调的一个方法，返回选择的条目
                   @Override
-                  public void onChoiceItem(Object item) {
+                  public void onChoiceItem(int index, Object item) {
                     Toast.makeText(MainActivity.this, "最终选择了：" + item, Toast.LENGTH_LONG).show();
                   }
                 }).setOnChoiceClickListener(new DialogInterface.OnClickListener() {
@@ -144,7 +145,7 @@ public class MainActivity extends BaseActivity {
                 }).setOnMultiChoiceListener(new DialogBuilder.OnMultiChoiceListener() {
                   // 对话框关闭后回调的一个方法，返回选择的条目
                   @Override
-                  public void onMultiChoiceItems(Object[] items) {
+                  public void onMultiChoiceItems(List<Integer> indexs, Object[]items) {
                     Toast.makeText(MainActivity.this, "最终选择了：" + Arrays.toString(items),
                         Toast.LENGTH_LONG).show();
                   }
