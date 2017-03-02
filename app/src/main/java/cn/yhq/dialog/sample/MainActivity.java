@@ -6,7 +6,6 @@ import android.os.Handler;
 import android.os.Message;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ListView;
@@ -14,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.Arrays;
+import java.util.List;
 
 import cn.yhq.adapter.list.SimpleStringListAdapter;
 import cn.yhq.base.BaseActivity;
@@ -88,7 +88,7 @@ public class MainActivity extends BaseActivity {
                 .setOnChoiceListener(new DialogBuilder.OnChoiceListener() {
                   // 对话框关闭后回调的一个方法，返回选择的条目
                   @Override
-                  public void onChoiceItem(Object item) {
+                  public void onChoiceItem(int index, Object item) {
                     Toast.makeText(MainActivity.this, "最终选择了：" + item, Toast.LENGTH_LONG).show();
                   }
                 }).setOnChoiceClickListener(new DialogInterface.OnClickListener() {
@@ -106,7 +106,7 @@ public class MainActivity extends BaseActivity {
                 .setOnChoiceListener(new DialogBuilder.OnChoiceListener() {
                   // 对话框关闭后回调的一个方法，返回选择的条目
                   @Override
-                  public void onChoiceItem(Object item) {
+                  public void onChoiceItem(int index, Object item) {
                     Toast.makeText(MainActivity.this, "最终选择了：" + item, Toast.LENGTH_LONG).show();
                   }
                 }).setOnChoiceClickListener(new DialogInterface.OnClickListener() {
@@ -145,7 +145,7 @@ public class MainActivity extends BaseActivity {
                 }).setOnMultiChoiceListener(new DialogBuilder.OnMultiChoiceListener() {
                   // 对话框关闭后回调的一个方法，返回选择的条目
                   @Override
-                  public void onMultiChoiceItems(Object[] items) {
+                  public void onMultiChoiceItems(List<Integer> indexs, Object[]items) {
                     Toast.makeText(MainActivity.this, "最终选择了：" + Arrays.toString(items),
                         Toast.LENGTH_LONG).show();
                   }
@@ -155,15 +155,12 @@ public class MainActivity extends BaseActivity {
             DialogBuilder.editTextDialog(MainActivity.this)
                 .setOnEditTextDialogListener(new DialogBuilder.OnEditTextDialogListener() {
                   @Override
-                  public void onEditTextCreated(EditText editText, CheckBox checkbox) {
+                  public void onEditTextCreated(EditText editText) {
                     editText.setHint("请输入文本内容");
-                    checkbox.setVisibility(View.VISIBLE);
-                    checkbox.setText("checkbox文本");
                   }
 
                   @Override
-                  public boolean onEditTextSelected(EditText editText, String text,
-                      CheckBox checkbox, boolean checked) {
+                  public boolean onEditTextSelected(EditText editText, String text) {
                     Toast.makeText(MainActivity.this, editText.getText().toString(),
                         Toast.LENGTH_LONG).show();
                     return false;

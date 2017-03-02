@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.text.Html;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ListAdapter;
@@ -143,11 +142,11 @@ public final class DialogBuilder {
   }
 
   public interface OnChoiceListener {
-    void onChoiceItem(Object item);
+    void onChoiceItem(int index, Object item);
   }
 
   public interface OnMultiChoiceListener {
-    void onMultiChoiceItems(Object[] items);
+    void onMultiChoiceItems(List<Integer> indexs, Object[] items);
   }
 
   public interface OnEditTextDialogListener {
@@ -165,8 +164,6 @@ public final class DialogBuilder {
 
   private DialogBuilder(Context context, int dialogType) {
     this.setContext(context);
-    this.setNegativeButtonText(context.getString(R.string.cancel));
-    this.setPositiveButtonText(context.getString(R.string.okay));
     this.setCancelable(true);
     this.setDialogType(dialogType);
   }
@@ -304,6 +301,7 @@ public final class DialogBuilder {
   public DialogBuilder setOnPositiveButtonClickListener(
       DialogInterface.OnClickListener onPositiveButtonClickListener) {
     this.onPositiveButtonClickListener = onPositiveButtonClickListener;
+    this.setPositiveButtonText(context.getString(R.string.okay));
     return this;
   }
 
@@ -320,6 +318,7 @@ public final class DialogBuilder {
   public DialogBuilder setOnNegativeButtonClickListener(
       DialogInterface.OnClickListener onNegativeButtonClickListener) {
     this.onNegativeButtonClickListener = onNegativeButtonClickListener;
+    this.setNegativeButtonText(context.getString(R.string.cancel));
     return this;
   }
 
@@ -403,9 +402,6 @@ public final class DialogBuilder {
    * @return the title
    */
   public String getTitle() {
-    if (TextUtils.isEmpty(title)) {
-      return context.getString(R.string.dialog_title);
-    }
     return title;
   }
 
