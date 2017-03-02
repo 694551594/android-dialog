@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
@@ -23,6 +24,13 @@ public class EditTextDialogProvider extends DialogProvider {
     @SuppressLint("InflateParams")
     @Override
     public Dialog createInnerDialog(final DialogBuilder dialogBuilder) {
+        if (TextUtils.isEmpty(dialogBuilder.getNegativeButtonText())) {
+            dialogBuilder.setNegativeButtonText(R.string.cancel);
+        }
+        if (TextUtils.isEmpty(dialogBuilder.getPositiveButtonText())) {
+            dialogBuilder.setPositiveButtonText(R.string.okay);
+        }
+
         View contentView = LayoutInflater.from(dialogBuilder.getContext())
                 .inflate(R.layout.comm_dialog_edittext, null, false);
         final EditText editText = (EditText) contentView.findViewById(R.id.edittext);
