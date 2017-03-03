@@ -57,6 +57,7 @@ public class ListDialogProvider extends DialogProvider {
       }
     } else if (dialogBuilder.getChoiceType() == DialogBuilder.TYPE_CHOICE_SINGLE) {
       // 这种方式点击确定按钮才会关闭
+      dialogBuilder.defaultButtonText();
       final int[] checkedItems = new int[1];
       if (dialogBuilder.getChoiceItems() != null) {
         builder.setSingleChoiceItems(dialogBuilder.getChoiceItems(), dialogBuilder.getCheckedItem(),
@@ -95,12 +96,14 @@ public class ListDialogProvider extends DialogProvider {
                   onChoiceListener.onChoiceItem(checkedItems[0],
                       dialogBuilder.getChoiceAdapter().getItem(checkedItems[0]));
                 }
-
               }
             }
           });
+      builder.setNegativeButton(dialogBuilder.getNegativeButtonText(),
+          dialogBuilder.getOnNegativeButtonClickListener());
     } else if (dialogBuilder.getChoiceType() == DialogBuilder.TYPE_CHOICE_MULTI) {
       // 这种方式点击确定按钮才会关闭
+      dialogBuilder.defaultButtonText();
       if (dialogBuilder.getChoiceItems() != null) {
         final List<Integer> choiceIndexs = new ArrayList<>();
         final boolean items[] = new boolean[dialogBuilder.getChoiceItems().length];
@@ -148,9 +151,9 @@ public class ListDialogProvider extends DialogProvider {
                   }
                 });
       }
+      builder.setNegativeButton(dialogBuilder.getNegativeButtonText(),
+          dialogBuilder.getOnNegativeButtonClickListener());
     }
-    builder.setNegativeButton(dialogBuilder.getNegativeButtonText(),
-        dialogBuilder.getOnNegativeButtonClickListener());
     return builder.create();
   }
 

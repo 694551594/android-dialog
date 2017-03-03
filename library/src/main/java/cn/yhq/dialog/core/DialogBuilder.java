@@ -429,6 +429,16 @@ public final class DialogBuilder {
     return negativeButtonText;
   }
 
+  public DialogBuilder defaultButtonText() {
+    if (TextUtils.isEmpty(this.getNegativeButtonText())) {
+      this.setNegativeButtonText(R.string.cancel);
+    }
+    if (TextUtils.isEmpty(this.getPositiveButtonText())) {
+      this.setPositiveButtonText(R.string.okay);
+    }
+    return this;
+  }
+
   public DialogInterface.OnCancelListener getOnCancelListener() {
     return onCancelListener;
   }
