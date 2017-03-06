@@ -32,7 +32,7 @@ public final class DialogBuilder {
   private boolean cancelable;
   private int choiceType = TYPE_CHOICE_NORMAL;
 
-  private CharSequence[] choiceItems;
+  private Object[] choiceItems;
   private ListAdapter choiceAdapter;
   private int checkedItem;
   private int[] checkedItems;
@@ -270,8 +270,8 @@ public final class DialogBuilder {
     return this;
   }
 
-  public DialogBuilder setChoiceItems(List<CharSequence> choiceItems) {
-    CharSequence[] items = new CharSequence[choiceItems.size()];
+  public DialogBuilder setChoiceItems(List<Object> choiceItems) {
+    Object[] items = new Object[choiceItems.size()];
     for (int i = 0; i < choiceItems.size(); i++) {
       items[i] = choiceItems.get(i);
     }
@@ -279,12 +279,12 @@ public final class DialogBuilder {
     return this;
   }
 
-  public DialogBuilder setChoiceItems(CharSequence... choiceItems) {
+  public DialogBuilder setChoiceItems(Object... choiceItems) {
     this.choiceItems = choiceItems;
     return this;
   }
 
-  public CharSequence[] getChoiceItems() {
+  public Object[] getChoiceItems() {
     return choiceItems;
   }
 
@@ -533,9 +533,6 @@ public final class DialogBuilder {
 
   public DialogBuilder setDialogType(int dialogType) {
     this.dialogType = dialogType;
-    if (this.dialogType == DIALOG_MESSAGE) {
-      this.setNegativeButtonText(0);
-    }
     return this;
   }
 

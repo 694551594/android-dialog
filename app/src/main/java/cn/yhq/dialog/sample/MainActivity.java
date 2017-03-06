@@ -65,7 +65,7 @@ public class MainActivity extends BaseActivity {
             "圆形进度对话框", "bottom sheet对话框", "普通进度对话框", "载入对话框1", "载入对话框2"});
 
     listView.setAdapter(adapter);
-    final String[] list = {"选择项1", "选择项2", "选择项3", "选择项4", "选择项5", "选择项6"};
+    final Object[] list = {"选择项1", "选择项2", "选择项3", "选择项4", "选择项5", "选择项6"};
     listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
       @Override
       public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

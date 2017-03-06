@@ -28,10 +28,15 @@ public class ListDialogProvider extends DialogProvider {
         dialogBuilder.getOnMultiChoiceClickListener();
     final DialogBuilder.OnMultiChoiceListener onMultiChoiceListener =
         dialogBuilder.getOnMultiChoiceListener();
+    final List<String> items = new ArrayList<>();
+    for (Object o : dialogBuilder.getChoiceItems()) {
+      items.add(o.toString());
+    }
+    final CharSequence[] choiceItems = items.toArray(new String[items.size()]);
     if (dialogBuilder.getChoiceType() == DialogBuilder.TYPE_CHOICE_NORMAL) {
       // 这种对话框选择了后会关闭
       if (dialogBuilder.getChoiceItems() != null) {
-        builder.setItems(dialogBuilder.getChoiceItems(), new DialogInterface.OnClickListener() {
+        builder.setItems(choiceItems, new DialogInterface.OnClickListener() {
           @Override
           public void onClick(DialogInterface dialog, int which) {
             if (onChoiceClickListener != null) {
@@ -60,7 +65,7 @@ public class ListDialogProvider extends DialogProvider {
       dialogBuilder.defaultButtonText();
       final int[] checkedItems = new int[1];
       if (dialogBuilder.getChoiceItems() != null) {
-        builder.setSingleChoiceItems(dialogBuilder.getChoiceItems(), dialogBuilder.getCheckedItem(),
+        builder.setSingleChoiceItems(choiceItems, dialogBuilder.getCheckedItem(),
             new DialogInterface.OnClickListener() {
               @Override
               public void onClick(DialogInterface dialog, int which) {
@@ -106,22 +111,22 @@ public class ListDialogProvider extends DialogProvider {
       dialogBuilder.defaultButtonText();
       if (dialogBuilder.getChoiceItems() != null) {
         final List<Integer> choiceIndexs = new ArrayList<>();
-        final boolean items[] = new boolean[dialogBuilder.getChoiceItems().length];
-        for (int i = 0; i < items.length; i++) {
-          items[i] = false;
+        final boolean itemCheckeds[] = new boolean[dialogBuilder.getChoiceItems().length];
+        for (int i = 0; i < itemCheckeds.length; i++) {
+          itemCheckeds[i] = false;
           for (int j = 0; j < dialogBuilder.getCheckedItems().length; j++) {
             if (i == dialogBuilder.getCheckedItems()[j]) {
-              items[i] = true;
+              itemCheckeds[i] = true;
               choiceIndexs.add(i);
               break;
             }
           }
         }
-        builder.setMultiChoiceItems(dialogBuilder.getChoiceItems(), items,
+        builder.setMultiChoiceItems(choiceItems, itemCheckeds,
             new DialogInterface.OnMultiChoiceClickListener() {
               @Override
               public void onClick(DialogInterface dialog, int which, boolean isChecked) {
-                items[which] = isChecked;
+                itemCheckeds[which] = isChecked;
                 if (isChecked) {
                   choiceIndexs.add(which);
                 } else {
@@ -139,8 +144,8 @@ public class ListDialogProvider extends DialogProvider {
                       onPositiveButtonClickListener.onClick(dialog, which);
                     }
                     List<Object> checkedItems = new ArrayList();
-                    for (int i = 0; i < items.length; i++) {
-                      if (items[i]) {
+                    for (int i = 0; i < itemCheckeds.length; i++) {
+                      if (itemCheckeds[i]) {
                         checkedItems.add(dialogBuilder.getChoiceItems()[i]);
                       }
                     }

@@ -11,6 +11,7 @@ import cn.yhq.dialog.provider.ListDialogProvider;
 import cn.yhq.dialog.provider.LoadingDialogProvider0;
 import cn.yhq.dialog.provider.LoadingDialogProvider1;
 import cn.yhq.dialog.provider.LoadingDialogProvider2;
+import cn.yhq.dialog.provider.MessageDialogProvider;
 import cn.yhq.dialog.provider.ProgressDialogProvider;
 
 import static cn.yhq.dialog.core.DialogBuilder.DIALOG_ALERT;
@@ -36,7 +37,7 @@ public final class DialogFactory {
 
   static {
     register(DIALOG_OTHER, new ContentViewDialogProvider());
-    register(DIALOG_MESSAGE, new AlertDialogProvider());
+    register(DIALOG_MESSAGE, new MessageDialogProvider());
     register(DIALOG_ALERT, new AlertDialogProvider());
     register(DIALOG_LOADING0, new LoadingDialogProvider0());
     register(DIALOG_LOADING1, new LoadingDialogProvider1());

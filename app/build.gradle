@@ -23,6 +23,9 @@ android {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile 'cn.yhq:android-base:1.7.0'
+    compile ('cn.yhq:android-base:1.7.0') {
+        exclude group: 'cn.yhq', module: 'android-dialog'
+    }
     compile 'cn.yhq:android-adapter:1.4.0'
+    compile project(':library')
 }
