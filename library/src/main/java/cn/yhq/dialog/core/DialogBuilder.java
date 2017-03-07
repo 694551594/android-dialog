@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ListAdapter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import cn.yhq.dialog.R;
@@ -32,7 +33,7 @@ public final class DialogBuilder {
   private boolean cancelable;
   private int choiceType = TYPE_CHOICE_NORMAL;
 
-  private Object[] choiceItems;
+  private List<Object> choiceItems;
   private ListAdapter choiceAdapter;
   private int checkedItem;
   private int[] checkedItems;
@@ -270,21 +271,23 @@ public final class DialogBuilder {
     return this;
   }
 
-  public DialogBuilder setChoiceItems(List<Object> choiceItems) {
-    Object[] items = new Object[choiceItems.size()];
-    for (int i = 0; i < choiceItems.size(); i++) {
-      items[i] = choiceItems.get(i);
+  public DialogBuilder setChoiceItems(List<?> choiceItems) {
+    this.choiceItems = new ArrayList<>();
+    for (Object o : choiceItems) {
+      this.choiceItems.add(o);
     }
-    this.choiceItems = items;
     return this;
   }
 
   public DialogBuilder setChoiceItems(Object... choiceItems) {
-    this.choiceItems = choiceItems;
+    this.choiceItems = new ArrayList<>();
+    for (Object o : choiceItems) {
+      this.choiceItems.add(o);
+    }
     return this;
   }
 
-  public Object[] getChoiceItems() {
+  public List<Object> getChoiceItems() {
     return choiceItems;
   }
 

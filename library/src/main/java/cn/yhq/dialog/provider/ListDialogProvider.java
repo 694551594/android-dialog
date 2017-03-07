@@ -43,7 +43,7 @@ public class ListDialogProvider extends DialogProvider {
               onChoiceClickListener.onClick(dialog, which);
             }
             if (onChoiceListener != null) {
-              onChoiceListener.onChoiceItem(which, dialogBuilder.getChoiceItems()[which]);
+              onChoiceListener.onChoiceItem(which, dialogBuilder.getChoiceItems().get(which));
             }
           }
         });
@@ -96,7 +96,7 @@ public class ListDialogProvider extends DialogProvider {
               if (onChoiceListener != null) {
                 if (dialogBuilder.getChoiceItems() != null) {
                   onChoiceListener.onChoiceItem(checkedItems[0],
-                      dialogBuilder.getChoiceItems()[checkedItems[0]]);
+                      dialogBuilder.getChoiceItems().get(checkedItems[0]));
                 } else if (dialogBuilder.getChoiceAdapter() != null) {
                   onChoiceListener.onChoiceItem(checkedItems[0],
                       dialogBuilder.getChoiceAdapter().getItem(checkedItems[0]));
@@ -111,7 +111,7 @@ public class ListDialogProvider extends DialogProvider {
       dialogBuilder.defaultButtonText();
       if (dialogBuilder.getChoiceItems() != null) {
         final List<Integer> choiceIndexs = new ArrayList<>();
-        final boolean itemCheckeds[] = new boolean[dialogBuilder.getChoiceItems().length];
+        final boolean itemCheckeds[] = new boolean[dialogBuilder.getChoiceItems().size()];
         for (int i = 0; i < itemCheckeds.length; i++) {
           itemCheckeds[i] = false;
           for (int j = 0; j < dialogBuilder.getCheckedItems().length; j++) {
@@ -146,7 +146,7 @@ public class ListDialogProvider extends DialogProvider {
                     List<Object> checkedItems = new ArrayList();
                     for (int i = 0; i < itemCheckeds.length; i++) {
                       if (itemCheckeds[i]) {
-                        checkedItems.add(dialogBuilder.getChoiceItems()[i]);
+                        checkedItems.add(dialogBuilder.getChoiceItems().get(i));
                       }
                     }
                     if (onMultiChoiceListener != null) {
