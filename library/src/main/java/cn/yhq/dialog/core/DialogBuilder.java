@@ -304,7 +304,6 @@ public final class DialogBuilder {
   public DialogBuilder setOnPositiveButtonClickListener(
       DialogInterface.OnClickListener onPositiveButtonClickListener) {
     this.onPositiveButtonClickListener = onPositiveButtonClickListener;
-    this.setPositiveButtonText(context.getString(R.string.okay));
     return this;
   }
 
@@ -321,7 +320,6 @@ public final class DialogBuilder {
   public DialogBuilder setOnNegativeButtonClickListener(
       DialogInterface.OnClickListener onNegativeButtonClickListener) {
     this.onNegativeButtonClickListener = onNegativeButtonClickListener;
-    this.setNegativeButtonText(context.getString(R.string.cancel));
     return this;
   }
 

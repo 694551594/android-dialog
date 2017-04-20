@@ -3,6 +3,7 @@ package cn.yhq.dialog.core;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -10,6 +11,7 @@ import android.view.LayoutInflater;
 
 public class DialogFragment extends android.support.v4.app.DialogFragment {
   private IDialog dialog;
+  private DialogBuilder dialogBuilder;
 
   @NonNull
   @Override
@@ -31,6 +33,8 @@ public class DialogFragment extends android.support.v4.app.DialogFragment {
       int id = bundle.getInt("id");
       Bundle args = bundle.getBundle("args");
       dialog = creator.createDialog(id, args);
+      dialogBuilder = ((cn.yhq.dialog.core.Dialog) dialog).getDialogBuilder();
+      this.setCancelable(dialogBuilder.isCancelable());
       return dialog.getInnerDialog();
     }
     return super.onCreateDialog(savedInstanceState);
@@ -56,7 +60,7 @@ public class DialogFragment extends android.support.v4.app.DialogFragment {
 
   private DialogBuilder.OnStateChangeListener getOnStateChangeListener() {
     DialogBuilder.OnStateChangeListener onStateChangeListener =
-        ((cn.yhq.dialog.core.Dialog) dialog).getDialogBuilder().getOnStateChangeListener();
+        dialogBuilder.getOnStateChangeListener();
     return onStateChangeListener;
   }
 
@@ -72,4 +76,20 @@ public class DialogFragment extends android.support.v4.app.DialogFragment {
     return layoutInflater;
   }
 
+  @Override
+  public void onCancel(DialogInterface dialog) {
+    super.onCancel(dialog);
+    DialogInterface.OnCancelListener listener = dialogBuilder.getOnCancelListener();
+    if (listener != null) {
+      listener.onCancel(dialog);
+    }
+  }
+
+  @Override
+  public void onDismiss(DialogInterface dialog) {
+    DialogInterface.OnDismissListener listener = dialogBuilder.getOnDismissListener();
+    if (listener != null) {
+      listener.onDismiss(dialog);
+    }
+  }
 }
