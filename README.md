@@ -23,7 +23,7 @@
 DialogBuilder.loadingDialog(this).show();
 ```
 [![](https://raw.githubusercontent.com/694551594/android-dialog/master/screenshots/截屏_20161010_140528.png)](https://raw.githubusercontent.com/694551594/android-dialog/master/screenshots/截屏_20161010_140528.png)
-#####显示一个进度对话框
+##### 显示一个进度对话框
 这个地方需要注意的是需要设置一个ProgressHandler，用于主动更新对话框的进度：
 ```java
 DialogBuilder.ProgressHandler progressHandler =
