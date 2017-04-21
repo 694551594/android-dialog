@@ -13,12 +13,12 @@
 
 [![](https://raw.githubusercontent.com/694551594/android-dialog/master/screenshots/截屏_20161010_140525.png)](https://raw.githubusercontent.com/694551594/android-dialog/master/screenshots/截屏_20161010_140525.png)
 
-#gradle配置方式
+# gradle配置方式
 `compile 'cn.yhq:android-dialog:1.6.0'`
-#使用方法
+# 使用方法
 创建对话框的方式有两种：
 #### 1、使用DialogBuilder直接创建，这种方式创建的对话框不会保存状态，即当屏幕旋转等导致的activity重建，对话框会消失。
-#####显示一个正在加载的对话框
+##### 显示一个正在加载的对话框
 ```java
 DialogBuilder.loadingDialog(this).show();
 ```
@@ -33,12 +33,12 @@ DialogBuilder.ProgressHandler progressHandler =
 progressHandler.setProgress(progress);
 ```
 [![](https://raw.githubusercontent.com/694551594/android-dialog/master/screenshots/截屏_20161010_175735.png)](https://raw.githubusercontent.com/694551594/android-dialog/master/screenshots/截屏_20161010_175735.png)
-#####显示一个消息对话框
+##### 显示一个消息对话框
 ```java
 DialogBuilder.messageDialog(MainActivity.this).setMessage("消息对话框").show();
 ```
 [![](https://raw.githubusercontent.com/694551594/android-dialog/master/screenshots/截屏_20161010_140532.png)](https://raw.githubusercontent.com/694551594/android-dialog/master/screenshots/截屏_20161010_140532.png)
-#####显示一个确认对话框
+##### 显示一个确认对话框
 ```java
 DialogBuilder.alertDialog(MainActivity.this).setMessage(args.getString("message"))
             .setOnPositiveButtonClickListener(new DialogInterface.OnClickListener() {
@@ -49,7 +49,7 @@ DialogBuilder.alertDialog(MainActivity.this).setMessage(args.getString("message"
             }).create();
 ```
 [![](https://raw.githubusercontent.com/694551594/android-dialog/master/screenshots/截屏_20161010_140535.png)](https://raw.githubusercontent.com/694551594/android-dialog/master/screenshots/截屏_20161010_140535.png)
-#####显示一个普通选择对话框
+##### 显示一个普通选择对话框
 ```java
   DialogBuilder.listDialog(MainActivity.this).setChoiceItems(list)
                 .setChoiceType(DialogBuilder.TYPE_CHOICE_NORMAL)
@@ -69,7 +69,7 @@ DialogBuilder.alertDialog(MainActivity.this).setMessage(args.getString("message"
                 }).show();
 ```
 [![](https://raw.githubusercontent.com/694551594/android-dialog/master/screenshots/截屏_20161010_140538.png)](https://raw.githubusercontent.com/694551594/android-dialog/master/screenshots/截屏_20161010_140538.png)
-#####显示一个单选对话框
+##### 显示一个单选对话框
 ```java
  DialogBuilder.listDialog(MainActivity.this).setChoiceItems(list)
                 .setChoiceType(DialogBuilder.TYPE_CHOICE_SINGLE)
@@ -94,7 +94,7 @@ DialogBuilder.alertDialog(MainActivity.this).setMessage(args.getString("message"
                 }).show();
 ```
 [![](https://raw.githubusercontent.com/694551594/android-dialog/master/screenshots/截屏_20161010_140547.png)](https://raw.githubusercontent.com/694551594/android-dialog/master/screenshots/截屏_20161010_140547.png)
-#####显示一个多选对话框
+##### 显示一个多选对话框
 ```java
  // 已经选好的条目
             int[] checkedItems = {1, 3, 4};
@@ -124,7 +124,7 @@ DialogBuilder.alertDialog(MainActivity.this).setMessage(args.getString("message"
                 }).show();
 ```
 [![](https://raw.githubusercontent.com/694551594/android-dialog/master/screenshots/截屏_20161010_140550.png)](https://raw.githubusercontent.com/694551594/android-dialog/master/screenshots/截屏_20161010_140550.png)
-#####显示一个文本输入对话框
+##### 显示一个文本输入对话框
 ```java
 DialogBuilder.editTextDialog(MainActivity.this)
                 .setOnEditTextDialogListener(new DialogBuilder.OnEditTextDialogListener() {
@@ -145,7 +145,7 @@ DialogBuilder.editTextDialog(MainActivity.this)
                 }).show();
 ```
 [![](https://raw.githubusercontent.com/694551594/android-dialog/master/screenshots/截屏_20161010_140553.png)](https://raw.githubusercontent.com/694551594/android-dialog/master/screenshots/截屏_20161010_140553.png)
-#####显示一个BottomSheet对话框
+##### 显示一个BottomSheet对话框
 ```java
   View sheetView = View.inflate(MainActivity.this, android.R.layout.simple_list_item_1, null);
   TextView sheetViewTextView = (TextView) sheetView.findViewById(android.R.id.text1);
@@ -153,7 +153,7 @@ DialogBuilder.editTextDialog(MainActivity.this)
   DialogBuilder.bottomSheetDialog(MainActivity.this).setContentView(sheetView).show();
 ```
 [![](https://raw.githubusercontent.com/694551594/android-dialog/master/screenshots/截屏_20161021_113255.png)](https://raw.githubusercontent.com/694551594/android-dialog/master/screenshots/截屏_20161021_113255.png)
-#####显示一个自定义对话框
+##### 显示一个自定义对话框
 ```java
 View customView =
                 View.inflate(MainActivity.this, android.R.layout.simple_list_item_1, null);
