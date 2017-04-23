@@ -87,6 +87,7 @@ public class DialogFragment extends android.support.v4.app.DialogFragment {
 
   @Override
   public void onDismiss(DialogInterface dialog) {
+    super.onDismiss(dialog);
     DialogInterface.OnDismissListener listener = dialogBuilder.getOnDismissListener();
     if (listener != null) {
       listener.onDismiss(dialog);
