@@ -1,4 +1,4 @@
-package cn.yhq.dialog.builder;
+package cn.yhq.dialog.core;
 
 /**
  * Created by Yanghuiqiang on 2017/5/4.

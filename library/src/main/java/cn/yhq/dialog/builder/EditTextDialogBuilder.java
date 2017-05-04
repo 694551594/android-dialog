@@ -4,6 +4,7 @@ import android.content.Context;
 import android.widget.EditText;
 
 import cn.yhq.dialog.core.DialogBuilder;
+import cn.yhq.dialog.core.DialogType;
 
 /**
  * Created by Yanghuiqiang on 2017/5/4.

@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cn.yhq.dialog.core.DialogBuilder;
+import cn.yhq.dialog.core.DialogType;
 
 /**
  * Created by Yanghuiqiang on 2017/5/4.

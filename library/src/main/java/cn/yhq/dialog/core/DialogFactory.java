@@ -2,7 +2,6 @@ package cn.yhq.dialog.core;
 
 import android.util.SparseArray;
 
-import cn.yhq.dialog.builder.DialogType;
 import cn.yhq.dialog.provider.AlertDialogProvider;
 import cn.yhq.dialog.provider.BottomSheetDialogProvider;
 import cn.yhq.dialog.provider.CircleProgressDialogProvider;
