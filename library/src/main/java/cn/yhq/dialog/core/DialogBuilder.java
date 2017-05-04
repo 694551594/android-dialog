@@ -6,547 +6,353 @@ import android.os.Bundle;
 import android.text.Html;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.FrameLayout;
-import android.widget.ListAdapter;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import cn.yhq.dialog.R;
+import cn.yhq.dialog.builder.AlertDialogBuilder;
+import cn.yhq.dialog.builder.BottomSheetDialogBuilder;
+import cn.yhq.dialog.builder.EditTextDialogBuilder;
+import cn.yhq.dialog.builder.ListDialogBuilder;
+import cn.yhq.dialog.builder.LoadingDialogBuilder;
+import cn.yhq.dialog.builder.MessageDialogBuilder;
+import cn.yhq.dialog.builder.OtherDialogBuilder;
+import cn.yhq.dialog.builder.ProgressDialogBuilder;
 
 
 /**
  * 对话框builder
- * 
+ *
  * @author Yanghuiqiang
- * 
+ *         <p>
  *         2015-11-23
  */
-public final class DialogBuilder {
+public class DialogBuilder<T extends DialogBuilder<T>> {
 
-  private Context context;
-  private String title;
-  private String message;
-  private String positiveButtonText;
-  private String negativeButtonText;
-  private boolean cancelable;
-  private int choiceType = TYPE_CHOICE_NORMAL;
+    private int dialogType;
 
-  private List<Object> choiceItems;
-  private ListAdapter choiceAdapter;
-  private int checkedItem;
-  private int[] checkedItems;
-  private View contentView;
-  private int contentViewResId;
-  private FrameLayout.LayoutParams layoutParams;
-  private DialogInterface.OnClickListener onPositiveButtonClickListener;
-  private DialogInterface.OnClickListener onNegativeButtonClickListener;
-  private DialogInterface.OnClickListener onChoiceClickListener;
-  private DialogInterface.OnCancelListener onCancelListener;
-  private DialogInterface.OnDismissListener onDismissListener;
-  private DialogInterface.OnShowListener onShowListener;
-  private OnEditTextDialogListener onEditTextDialogListener;
-  private DialogInterface.OnMultiChoiceClickListener onMultiChoiceClickListener;
-  private OnChoiceListener onChoiceListener;
-  private OnMultiChoiceListener onMultiChoiceListener;
-  private OnProgressListener onProgressListener;
-  private OnStateChangeListener onStateChangeListener;
+    private Context context;
+    private String title;
+    private String message;
+    private String positiveButtonText;
+    private String negativeButtonText;
+    private DialogInterface.OnClickListener onPositiveButtonClickListener;
+    private DialogInterface.OnClickListener onNegativeButtonClickListener;
+    private boolean cancelable;
+    private boolean canceledOnTouchOutside;
 
-  public final static int TYPE_CHOICE_NORMAL = 0;
-  public final static int TYPE_CHOICE_SINGLE = 1;
-  public final static int TYPE_CHOICE_MULTI = 2;
+    private View contentView;
+    private int contentViewResId;
+    private FrameLayout.LayoutParams layoutParams;
 
-  private int dialogType = DIALOG_OTHER;
+    private DialogInterface.OnCancelListener onCancelListener;
+    private DialogInterface.OnDismissListener onDismissListener;
+    private DialogInterface.OnShowListener onShowListener;
+    private OnStateChangeListener onStateChangeListener;
 
-  public final static int DIALOG_OTHER = -1;
-  public final static int DIALOG_MESSAGE = 0;
-  public final static int DIALOG_ALERT = 1;
-  public final static int DIALOG_LOADING0 = 2;
-  public final static int DIALOG_LIST = 3;
-  public final static int DIALOG_EDIT_TEXT = 4;
-  public final static int DIALOG_CIRCLE_PROGRESS = 5;
-  public final static int DIALOG_BOTTOM_SHEET = 6;
-  public final static int DIALOG_PROGRESS = 7;
-  public final static int DIALOG_LOADING1 = 8;
-  public final static int DIALOG_LOADING2 = 9;
-
-  public static DialogBuilder builder(Context context, int dialogType) {
-    return new DialogBuilder(context, dialogType);
-  }
-
-  public static DialogBuilder progressDialog(Context context) {
-    return builder(context, DIALOG_PROGRESS);
-  }
-
-  public static DialogBuilder progressCircleDialog(Context context) {
-    return builder(context, DIALOG_CIRCLE_PROGRESS);
-  }
-
-  public static DialogBuilder messageDialog(Context context) {
-    return builder(context, DIALOG_MESSAGE);
-  }
-
-  public static DialogBuilder bottomSheetDialog(Context context) {
-    return builder(context, DIALOG_BOTTOM_SHEET);
-  }
-
-  public static DialogBuilder alertDialog(Context context) {
-    return builder(context, DIALOG_ALERT);
-  }
-
-  public static DialogBuilder listDialog(Context context) {
-    return builder(context, DIALOG_LIST);
-  }
-
-  @Deprecated
-  public static DialogBuilder loadingDialog(Context context) {
-    return loadingDialog0(context);
-  }
-
-  public static DialogBuilder loadingDialog0(Context context) {
-    return builder(context, DIALOG_LOADING0);
-  }
-
-  public static DialogBuilder loadingDialog1(Context context) {
-    return builder(context, DIALOG_LOADING1);
-  }
-
-  public static DialogBuilder loadingDialog2(Context context) {
-    return builder(context, DIALOG_LOADING2);
-  }
-
-  public static DialogBuilder editTextDialog(Context context) {
-    return builder(context, DIALOG_EDIT_TEXT);
-  }
-
-  public static DialogBuilder otherDialog(Context context) {
-    return builder(context, DIALOG_OTHER);
-  }
-
-  public interface OnStateChangeListener {
-    void onSaveInstanceState(IDialog dialog, Bundle bundle);
-
-    void onRestoreInstanceState(IDialog dialog, Bundle bundle);
-  }
-
-  public interface OnProgressListener {
-    void onProgress(int progress);
-  }
-
-  public static class ProgressHandler {
-    OnProgressListener listener;
-
-    public void setProgress(int progress) {
-      listener.onProgress(progress);
+    public static DialogBuilder builder(Context context, int dialogType) {
+        return new DialogBuilder(context, dialogType);
     }
-  }
 
-  public interface OnChoiceListener {
-    void onChoiceItem(int index, Object item);
-  }
+    public static ProgressDialogBuilder progressDialog(Context context) {
+        return ProgressDialogBuilder.getProgressDialogBuilder1(context);
+    }
 
-  public interface OnMultiChoiceListener {
-    void onMultiChoiceItems(List<Integer> indexs, Object[] items);
-  }
+    public static ProgressDialogBuilder progressCircleDialog(Context context) {
+        return ProgressDialogBuilder.getProgressDialogBuilder2(context);
+    }
 
-  public interface OnEditTextDialogListener {
-    void onEditTextCreated(EditText editText);
+    public static MessageDialogBuilder messageDialog(Context context) {
+        return new MessageDialogBuilder(context);
+    }
+
+    public static BottomSheetDialogBuilder bottomSheetDialog(Context context) {
+        return new BottomSheetDialogBuilder(context);
+    }
+
+    public static AlertDialogBuilder alertDialog(Context context) {
+        return new AlertDialogBuilder(context);
+    }
+
+    public static ListDialogBuilder listDialog(Context context) {
+        return new ListDialogBuilder(context);
+    }
+
+    public static LoadingDialogBuilder loadingDialog0(Context context) {
+        return LoadingDialogBuilder.getLoadingDialogBuilder0(context);
+    }
+
+    public static LoadingDialogBuilder loadingDialog1(Context context) {
+        return LoadingDialogBuilder.getLoadingDialogBuilder1(context);
+    }
+
+    public static LoadingDialogBuilder loadingDialog2(Context context) {
+        return LoadingDialogBuilder.getLoadingDialogBuilder2(context);
+    }
+
+    public static EditTextDialogBuilder editTextDialog(Context context) {
+        return new EditTextDialogBuilder(context);
+    }
+
+    public static OtherDialogBuilder otherDialog(Context context) {
+        return new OtherDialogBuilder(context);
+    }
+
+    public interface OnStateChangeListener {
+        void onSaveInstanceState(IDialog dialog, Bundle bundle);
+
+        void onRestoreInstanceState(IDialog dialog, Bundle bundle);
+    }
+
+    public DialogBuilder(Context context, int dialogType) {
+        this.setContext(context);
+        this.setCancelable(true);
+        this.setDialogType(dialogType);
+    }
+
+    public boolean isCanceledOnTouchOutside() {
+        return canceledOnTouchOutside;
+    }
+
+    public T setCanceledOnTouchOutside(boolean canceledOnTouchOutside) {
+        this.canceledOnTouchOutside = canceledOnTouchOutside;
+        return self();
+    }
+
+    public int getContentViewResId() {
+        return contentViewResId;
+    }
+
+    public T setContentViewResId(int contentViewResId) {
+        this.contentViewResId = contentViewResId;
+        return self();
+    }
+
+    private T self() {
+        return (T) this;
+    }
+
+    public T setContentViewResId(int contentViewResId,
+                                 FrameLayout.LayoutParams layoutParams) {
+        this.contentViewResId = contentViewResId;
+        this.layoutParams = layoutParams;
+        return self();
+    }
+
+    public View getContentView() {
+        return contentView;
+    }
+
+    public T setContentView(View contentView) {
+        this.contentView = contentView;
+        return self();
+    }
+
+    public T setContentView(View contentView, FrameLayout.LayoutParams layoutParams) {
+        this.contentView = contentView;
+        this.layoutParams = layoutParams;
+        return self();
+    }
+
+    public OnStateChangeListener getOnStateChangeListener() {
+        return onStateChangeListener;
+    }
+
+    public T setOnStateChangeListener(OnStateChangeListener onStateChangeListener) {
+        this.onStateChangeListener = onStateChangeListener;
+        return self();
+    }
 
     /**
-     * 点击确定按钮的时候回调方法，返回true不会关闭对话框，返回false会关闭对话框
-     *
-     * @param editText
-     * @param text
-     * @return
+     * @return the onPositiveButtonClickListener
      */
-    boolean onEditTextSelected(EditText editText, String text);
-  }
-
-  private DialogBuilder(Context context, int dialogType) {
-    this.setContext(context);
-    this.setCancelable(true);
-    this.setDialogType(dialogType);
-  }
-
-  public OnEditTextDialogListener getOnEditTextDialogListener() {
-    return onEditTextDialogListener;
-  }
-
-  public DialogBuilder setOnEditTextDialogListener(
-      OnEditTextDialogListener onEditTextDialogListener) {
-    this.onEditTextDialogListener = onEditTextDialogListener;
-    return this;
-  }
-
-  public int getContentViewResId() {
-    return contentViewResId;
-  }
-
-  public DialogBuilder setContentViewResId(int contentViewResId) {
-    this.contentViewResId = contentViewResId;
-    return this;
-  }
-
-  public DialogBuilder setContentViewResId(int contentViewResId,
-      FrameLayout.LayoutParams layoutParams) {
-    this.contentViewResId = contentViewResId;
-    this.layoutParams = layoutParams;
-    return this;
-  }
-
-  public View getContentView() {
-    return contentView;
-  }
-
-  public DialogBuilder setContentView(View contentView) {
-    this.contentView = contentView;
-    return this;
-  }
-
-  public DialogBuilder setContentView(View contentView, FrameLayout.LayoutParams layoutParams) {
-    this.contentView = contentView;
-    this.layoutParams = layoutParams;
-    return this;
-  }
-
-  public int getChoiceType() {
-    return choiceType;
-  }
-
-  public DialogBuilder setChoiceType(int choiceType) {
-    this.choiceType = choiceType;
-    return this;
-  }
-
-  public ListAdapter getChoiceAdapter() {
-    return choiceAdapter;
-  }
-
-  public DialogBuilder setChoiceAdapter(ListAdapter choiceAdapter) {
-    this.choiceAdapter = choiceAdapter;
-    if (this.getChoiceType() == TYPE_CHOICE_MULTI) {
-      throw new IllegalArgumentException("多选对话框不可以设置adapter");
+    public DialogInterface.OnClickListener getOnPositiveButtonClickListener() {
+        return onPositiveButtonClickListener;
     }
-    return this;
-  }
 
-  public OnStateChangeListener getOnStateChangeListener() {
-    return onStateChangeListener;
-  }
-
-  public DialogBuilder setOnStateChangeListener(OnStateChangeListener onStateChangeListener) {
-    this.onStateChangeListener = onStateChangeListener;
-    return this;
-  }
-
-  /**
-   * 使用getCheckedItem替代
-   *
-   * @return
-   */
-  @Deprecated
-  public int getChoiceItem() {
-    return getCheckedItem();
-  }
-
-  /**
-   * 使用setCheckedItem替代
-   *
-   * @param checkedItem
-   * @return
-   */
-  @Deprecated
-  public DialogBuilder setChoiceItem(int checkedItem) {
-    this.setCheckedItem(checkedItem);
-    return this;
-  }
-
-  public int getCheckedItem() {
-    return checkedItem;
-  }
-
-  public DialogBuilder setCheckedItem(int checkedItem) {
-    this.checkedItem = checkedItem;
-    return this;
-  }
-
-  public DialogBuilder setChoiceItems(List<?> choiceItems) {
-    this.choiceItems = new ArrayList<>();
-    for (Object o : choiceItems) {
-      this.choiceItems.add(o);
+    /**
+     * @param onPositiveButtonClickListener the onPositiveButtonClickListener to set
+     */
+    public T setOnPositiveButtonClickListener(
+            DialogInterface.OnClickListener onPositiveButtonClickListener) {
+        this.onPositiveButtonClickListener = onPositiveButtonClickListener;
+        return self();
     }
-    return this;
-  }
 
-  public DialogBuilder setChoiceItems(Object... choiceItems) {
-    this.choiceItems = new ArrayList<>();
-    for (Object o : choiceItems) {
-      this.choiceItems.add(o);
+    /**
+     * @return the onNegativeButtonClickListener
+     */
+    public DialogInterface.OnClickListener getOnNegativeButtonClickListener() {
+        return onNegativeButtonClickListener;
     }
-    return this;
-  }
 
-  public List<Object> getChoiceItems() {
-    return choiceItems;
-  }
-
-  /**
-   * @return the onPositiveButtonClickListener
-   */
-  public DialogInterface.OnClickListener getOnPositiveButtonClickListener() {
-    return onPositiveButtonClickListener;
-  }
-
-  /**
-   * @param onPositiveButtonClickListener the onPositiveButtonClickListener to set
-   */
-  public DialogBuilder setOnPositiveButtonClickListener(
-      DialogInterface.OnClickListener onPositiveButtonClickListener) {
-    this.onPositiveButtonClickListener = onPositiveButtonClickListener;
-    return this;
-  }
-
-  /**
-   * @return the onNegativeButtonClickListener
-   */
-  public DialogInterface.OnClickListener getOnNegativeButtonClickListener() {
-    return onNegativeButtonClickListener;
-  }
-
-  /**
-   * @param onNegativeButtonClickListener the onNegativeButtonClickListener to set
-   */
-  public DialogBuilder setOnNegativeButtonClickListener(
-      DialogInterface.OnClickListener onNegativeButtonClickListener) {
-    this.onNegativeButtonClickListener = onNegativeButtonClickListener;
-    return this;
-  }
-
-  /**
-   * @return the cancelable
-   */
-  public boolean isCancelable() {
-    return cancelable;
-  }
-
-  /**
-   * @param cancelable the cancelable to set
-   */
-  public DialogBuilder setCancelable(boolean cancelable) {
-    this.cancelable = cancelable;
-    return this;
-  }
-
-  /**
-   * @return the context
-   */
-  public Context getContext() {
-    return context;
-  }
-
-  /**
-   * @param context the context to set
-   */
-  public DialogBuilder setContext(Context context) {
-    this.context = context;
-    return this;
-  }
-
-  public FrameLayout.LayoutParams getLayoutParams() {
-    return layoutParams;
-  }
-
-  public DialogBuilder setTitle(int title) {
-    this.title = context.getString(title);
-    return this;
-  }
-
-  public DialogBuilder setMessage(int message) {
-    this.message = context.getString(message);
-    return this;
-  }
-
-  public DialogBuilder setPositiveButtonText(int positiveButtonText) {
-    this.positiveButtonText =
-        positiveButtonText == 0 ? null : context.getString(positiveButtonText);
-    return this;
-  }
-
-  public DialogBuilder setNegativeButtonText(int negativeButtonText) {
-    this.negativeButtonText =
-        negativeButtonText == 0 ? null : context.getString(negativeButtonText);
-    return this;
-  }
-
-  public DialogBuilder setTitle(String title) {
-    this.title = title;
-    return this;
-  }
-
-  public DialogBuilder setMessage(String message) {
-    this.message = message;
-    return this;
-  }
-
-  public DialogBuilder setPositiveButtonText(String positiveButtonText) {
-    this.positiveButtonText = positiveButtonText;
-    return this;
-  }
-
-  public DialogBuilder setNegativeButtonText(String negativeButtonText) {
-    this.negativeButtonText = negativeButtonText;
-    return this;
-  }
-
-  /**
-   * @return the title
-   */
-  public String getTitle() {
-    return title;
-  }
-
-  /**
-   * @return the message
-   */
-  public CharSequence getMessage() {
-    if (TextUtils.isEmpty(message)) {
-      return message;
+    /**
+     * @param onNegativeButtonClickListener the onNegativeButtonClickListener to set
+     */
+    public T setOnNegativeButtonClickListener(
+            DialogInterface.OnClickListener onNegativeButtonClickListener) {
+        this.onNegativeButtonClickListener = onNegativeButtonClickListener;
+        return self();
     }
-    return Html.fromHtml(message);
-  }
 
-  /**
-   * @return the positiveButtonText
-   */
-  public String getPositiveButtonText() {
-    return positiveButtonText;
-  }
-
-  /**
-   * @return the negativeButtonText
-   */
-  public String getNegativeButtonText() {
-    return negativeButtonText;
-  }
-
-  public DialogBuilder defaultButtonText() {
-    if (TextUtils.isEmpty(this.getNegativeButtonText())) {
-      this.setNegativeButtonText(R.string.cancel);
+    /**
+     * @return the cancelable
+     */
+    public boolean isCancelable() {
+        return cancelable;
     }
-    if (TextUtils.isEmpty(this.getPositiveButtonText())) {
-      this.setPositiveButtonText(R.string.okay);
+
+    /**
+     * @param cancelable the cancelable to set
+     */
+    public T setCancelable(boolean cancelable) {
+        this.cancelable = cancelable;
+        return self();
     }
-    return this;
-  }
 
-  public DialogInterface.OnCancelListener getOnCancelListener() {
-    return onCancelListener;
-  }
+    /**
+     * @return the context
+     */
+    public Context getContext() {
+        return context;
+    }
 
-  public DialogBuilder setOnCancelListener(DialogInterface.OnCancelListener onCancelListener) {
-    this.onCancelListener = onCancelListener;
-    return this;
-  }
+    /**
+     * @param context the context to set
+     */
+    public T setContext(Context context) {
+        this.context = context;
+        return self();
+    }
 
-  public DialogInterface.OnDismissListener getOnDismissListener() {
-    return onDismissListener;
-  }
+    public FrameLayout.LayoutParams getLayoutParams() {
+        return layoutParams;
+    }
 
-  public DialogBuilder setOnShowListener(DialogInterface.OnShowListener onShowListener) {
-    this.onShowListener = onShowListener;
-    return this;
-  }
+    public T setTitle(int title) {
+        this.title = context.getString(title);
+        return self();
+    }
 
-  public DialogInterface.OnShowListener getOnShowListener() {
-    return onShowListener;
-  }
+    public T setMessage(int message) {
+        this.message = context.getString(message);
+        return self();
+    }
 
-  public DialogBuilder setOnDismissListener(DialogInterface.OnDismissListener onDismissListener) {
-    this.onDismissListener = onDismissListener;
-    return this;
-  }
+    public T setPositiveButtonText(int positiveButtonText) {
+        this.positiveButtonText =
+                positiveButtonText == 0 ? null : context.getString(positiveButtonText);
+        return self();
+    }
 
-  public DialogInterface.OnMultiChoiceClickListener getOnMultiChoiceClickListener() {
-    return onMultiChoiceClickListener;
-  }
+    public T setNegativeButtonText(int negativeButtonText) {
+        this.negativeButtonText =
+                negativeButtonText == 0 ? null : context.getString(negativeButtonText);
+        return self();
+    }
 
-  public DialogBuilder setOnMultiChoiceClickListener(
-      DialogInterface.OnMultiChoiceClickListener onMultiChoiceClickListener) {
-    this.onMultiChoiceClickListener = onMultiChoiceClickListener;
-    return this;
-  }
+    public T setTitle(String title) {
+        this.title = title;
+        return self();
+    }
 
-  public DialogInterface.OnClickListener getOnChoiceClickListener() {
-    return onChoiceClickListener;
-  }
+    public T setMessage(String message) {
+        this.message = message;
+        return self();
+    }
 
-  public DialogBuilder setOnChoiceClickListener(
-      DialogInterface.OnClickListener onChoiceClickListener) {
-    this.onChoiceClickListener = onChoiceClickListener;
-    return this;
-  }
+    public T setPositiveButtonText(String positiveButtonText) {
+        this.positiveButtonText = positiveButtonText;
+        return self();
+    }
 
-  public int[] getCheckedItems() {
-    return checkedItems;
-  }
+    public T setNegativeButtonText(String negativeButtonText) {
+        this.negativeButtonText = negativeButtonText;
+        return self();
+    }
 
-  public DialogBuilder setCheckedItems(int[] checkedItems) {
-    this.checkedItems = checkedItems;
-    return this;
-  }
+    /**
+     * @return the title
+     */
+    public String getTitle() {
+        return title;
+    }
 
-  public OnChoiceListener getOnChoiceListener() {
-    return onChoiceListener;
-  }
+    /**
+     * @return the message
+     */
+    public CharSequence getMessage() {
+        if (TextUtils.isEmpty(message)) {
+            return message;
+        }
+        return Html.fromHtml(message);
+    }
 
-  public DialogBuilder setOnChoiceListener(OnChoiceListener onChoiceListener) {
-    this.onChoiceListener = onChoiceListener;
-    return this;
-  }
+    /**
+     * @return the positiveButtonText
+     */
+    public String getPositiveButtonText() {
+        return positiveButtonText;
+    }
 
-  public OnMultiChoiceListener getOnMultiChoiceListener() {
-    return onMultiChoiceListener;
-  }
+    /**
+     * @return the negativeButtonText
+     */
+    public String getNegativeButtonText() {
+        return negativeButtonText;
+    }
 
-  public DialogBuilder setOnMultiChoiceListener(OnMultiChoiceListener onMultiChoiceListener) {
-    this.onMultiChoiceListener = onMultiChoiceListener;
-    return this;
-  }
+    public T defaultButtonText() {
+        if (TextUtils.isEmpty(this.getNegativeButtonText())) {
+            this.setNegativeButtonText(R.string.cancel);
+        }
+        if (TextUtils.isEmpty(this.getPositiveButtonText())) {
+            this.setPositiveButtonText(R.string.okay);
+        }
+        return self();
+    }
 
-  public OnProgressListener getOnProgressListener() {
-    return onProgressListener;
-  }
+    public DialogInterface.OnCancelListener getOnCancelListener() {
+        return onCancelListener;
+    }
 
-  public void setOnProgressListener(OnProgressListener onProgressListener) {
-    this.onProgressListener = onProgressListener;
-  }
+    public T setOnCancelListener(DialogInterface.OnCancelListener onCancelListener) {
+        this.onCancelListener = onCancelListener;
+        return self();
+    }
 
-  public DialogBuilder progressHandler(ProgressHandler progressHandler) {
-    progressHandler.listener = new OnProgressListener() {
-      @Override
-      public void onProgress(int progress) {
-        onProgressListener.onProgress(progress);
-      }
-    };
-    return this;
-  }
+    public DialogInterface.OnDismissListener getOnDismissListener() {
+        return onDismissListener;
+    }
 
-  public DialogBuilder setDialogType(int dialogType) {
-    this.dialogType = dialogType;
-    return this;
-  }
+    public T setOnShowListener(DialogInterface.OnShowListener onShowListener) {
+        this.onShowListener = onShowListener;
+        return self();
+    }
 
-  public int getDialogType() {
-    return this.dialogType;
-  }
+    public DialogInterface.OnShowListener getOnShowListener() {
+        return onShowListener;
+    }
 
-  public IDialog create() {
-    return DialogFactory.create(this);
-  }
+    public T setOnDismissListener(DialogInterface.OnDismissListener onDismissListener) {
+        this.onDismissListener = onDismissListener;
+        return self();
+    }
 
-  public IDialog show() {
-    return create().show();
-  }
+    public T setDialogType(int dialogType) {
+        this.dialogType = dialogType;
+        return self();
+    }
+
+    public final int getDialogType() {
+        return this.dialogType;
+    }
+
+    public final IDialog create() {
+        return DialogFactory.create(this);
+    }
+
+    public final IDialog show() {
+        return create().show();
+    }
 
 }

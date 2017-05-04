@@ -1,6 +1,6 @@
 package cn.yhq.dialog.core;
 
 
-public interface IDialogProvider {
-  IDialog createDialog(DialogBuilder dialogBuilder);
+public interface IDialogProvider<T extends DialogBuilder<T>> {
+    IDialog createDialog(T dialogBuilder);
 }
