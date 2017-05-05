@@ -11,7 +11,7 @@ import cn.yhq.dialog.core.DialogType;
 
 public class LoadingDialogBuilder extends DialogBuilder<LoadingDialogBuilder> {
 
-    public LoadingDialogBuilder(Context context, int dialogType) {
+    protected LoadingDialogBuilder(Context context, int dialogType) {
         super(context, dialogType);
     }
 

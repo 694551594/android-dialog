@@ -49,7 +49,7 @@ public class DialogBuilder<T extends DialogBuilder<T>> {
     private DialogInterface.OnShowListener onShowListener;
     private OnStateChangeListener onStateChangeListener;
 
-    public static DialogBuilder builder(Context context, int dialogType) {
+    public static <T extends DialogBuilder<T>> DialogBuilder<T> builder(Context context, int dialogType) {
         return new DialogBuilder(context, dialogType);
     }
 
@@ -106,6 +106,7 @@ public class DialogBuilder<T extends DialogBuilder<T>> {
     public DialogBuilder(Context context, int dialogType) {
         this.setContext(context);
         this.setCancelable(true);
+        this.setCanceledOnTouchOutside(true);
         this.setDialogType(dialogType);
     }
 

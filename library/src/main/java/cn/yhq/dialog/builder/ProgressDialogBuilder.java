@@ -24,7 +24,7 @@ public class ProgressDialogBuilder extends DialogBuilder<ProgressDialogBuilder> 
         }
     }
 
-    public ProgressDialogBuilder(Context context, int dialogType) {
+    protected ProgressDialogBuilder(Context context, int dialogType) {
         super(context, dialogType);
     }
 
