@@ -42,7 +42,7 @@ public class ProgressDialogBuilder extends DialogBuilder<ProgressDialogBuilder> 
 
     public ProgressDialogBuilder setOnProgressListener(OnProgressListener onProgressListener) {
         this.onProgressListener = onProgressListener;
-        return this;
+        return self();
     }
 
     public ProgressDialogBuilder progressHandler(ProgressHandler progressHandler) {
@@ -52,7 +52,7 @@ public class ProgressDialogBuilder extends DialogBuilder<ProgressDialogBuilder> 
                 onProgressListener.onProgress(progress);
             }
         };
-        return this;
+        return self();
     }
 
 }

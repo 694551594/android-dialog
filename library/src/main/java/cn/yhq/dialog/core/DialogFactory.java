@@ -22,9 +22,8 @@ import cn.yhq.dialog.provider.ProgressDialogProvider;
  */
 public final class DialogFactory {
     private final static SparseArray<IDialogProvider<?>> dialogProviders = new SparseArray<>();
-
     static {
-        register(DialogType.DIALOG_OTHER, new ContentViewDialogProvider());
+        register(DialogType.DIALOG_OTHER, new ContentViewDialogProvider<>());
         register(DialogType.DIALOG_MESSAGE, new MessageDialogProvider());
         register(DialogType.DIALOG_ALERT, new AlertDialogProvider());
         register(DialogType.DIALOG_LOADING0, new LoadingDialogProvider0());
@@ -41,9 +40,9 @@ public final class DialogFactory {
         dialogProviders.put(dialogType, dialogProvider);
     }
 
-    public static <T extends DialogBuilder<T>> IDialog create(DialogBuilder<T> dialogBuilder) {
+    public static <T extends DialogBuilder<T>> IDialog create(T dialogBuilder) {
         int dialogType = dialogBuilder.getDialogType();
-        IDialogProvider dialogProvider = dialogProviders.get(dialogType);
+        IDialogProvider<T> dialogProvider = (IDialogProvider<T>) dialogProviders.get(dialogType);
         return dialogProvider.createDialog(dialogBuilder);
     }
 

@@ -45,7 +45,7 @@ public class MainActivity extends BaseActivity {
     public IDialog createDialog(int id, Bundle args) {
         switch (id) {
             case 1:
-                return DialogBuilder.alertDialog(this).setMessage(args.getString("message"))
+                return DialogBuilder.alertDialog(this).setTitle("我是标题").setMessage(args.getString("message"))
                         .setOnPositiveButtonClickListener(new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {

@@ -15,7 +15,7 @@ public class AlertDialogProvider extends DialogProvider<AlertDialogBuilder> {
 
     @Override
     public Dialog createInnerDialog(AlertDialogBuilder dialogBuilder) {
-        dialogBuilder.defaultButtonText();
+        dialogBuilder.setDefaultButtonText();
         return new AlertDialog.Builder(dialogBuilder.getContext()).setTitle(dialogBuilder.getTitle())
                 .setMessage(dialogBuilder.getMessage())
                 .setNegativeButton(dialogBuilder.getNegativeButtonText(),

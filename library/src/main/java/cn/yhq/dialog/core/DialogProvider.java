@@ -16,7 +16,7 @@ public abstract class DialogProvider<T extends DialogBuilder<T>>
         innerDialog.setOnDismissListener(dialogBuilder.getOnDismissListener());
         innerDialog.setOnShowListener(dialogBuilder.getOnShowListener());
         innerDialog.setCanceledOnTouchOutside(dialogBuilder.isCanceledOnTouchOutside());
-        Dialog dialog = new Dialog(innerDialog);
+        Dialog<T> dialog = new Dialog<>(innerDialog);
         dialog.setDialogBuilder(dialogBuilder);
         return dialog;
     }

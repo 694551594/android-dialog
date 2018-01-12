@@ -49,7 +49,7 @@ public class ListDialogBuilder extends DialogBuilder<ListDialogBuilder> {
 
     public ListDialogBuilder setChoiceType(int choiceType) {
         this.choiceType = choiceType;
-        return this;
+        return self();
     }
 
     public ListAdapter getChoiceAdapter() {
@@ -61,7 +61,7 @@ public class ListDialogBuilder extends DialogBuilder<ListDialogBuilder> {
         if (this.getChoiceType() == TYPE_CHOICE_MULTI) {
             throw new IllegalArgumentException("多选对话框不可以设置adapter");
         }
-        return this;
+        return self();
     }
 
     public int getCheckedItem() {
@@ -70,7 +70,7 @@ public class ListDialogBuilder extends DialogBuilder<ListDialogBuilder> {
 
     public ListDialogBuilder setCheckedItem(int checkedItem) {
         this.checkedItem = checkedItem;
-        return this;
+        return self();
     }
 
     public ListDialogBuilder setChoiceItems(List<?> choiceItems) {
@@ -78,7 +78,7 @@ public class ListDialogBuilder extends DialogBuilder<ListDialogBuilder> {
         for (Object o : choiceItems) {
             this.choiceItems.add(o);
         }
-        return this;
+        return self();
     }
 
     public ListDialogBuilder setChoiceItems(Object... choiceItems) {
@@ -86,7 +86,7 @@ public class ListDialogBuilder extends DialogBuilder<ListDialogBuilder> {
         for (Object o : choiceItems) {
             this.choiceItems.add(o);
         }
-        return this;
+        return self();
     }
 
     public List<Object> getChoiceItems() {
@@ -100,7 +100,7 @@ public class ListDialogBuilder extends DialogBuilder<ListDialogBuilder> {
     public ListDialogBuilder setOnMultiChoiceClickListener(
             DialogInterface.OnMultiChoiceClickListener onMultiChoiceClickListener) {
         this.onMultiChoiceClickListener = onMultiChoiceClickListener;
-        return this;
+        return self();
     }
 
     public DialogInterface.OnClickListener getOnChoiceClickListener() {
@@ -110,7 +110,7 @@ public class ListDialogBuilder extends DialogBuilder<ListDialogBuilder> {
     public ListDialogBuilder setOnChoiceClickListener(
             DialogInterface.OnClickListener onChoiceClickListener) {
         this.onChoiceClickListener = onChoiceClickListener;
-        return this;
+        return self();
     }
 
     public int[] getCheckedItems() {
@@ -119,7 +119,7 @@ public class ListDialogBuilder extends DialogBuilder<ListDialogBuilder> {
 
     public ListDialogBuilder setCheckedItems(int[] checkedItems) {
         this.checkedItems = checkedItems;
-        return this;
+        return self();
     }
 
     public OnChoiceListener getOnChoiceListener() {
@@ -128,7 +128,7 @@ public class ListDialogBuilder extends DialogBuilder<ListDialogBuilder> {
 
     public ListDialogBuilder setOnChoiceListener(OnChoiceListener onChoiceListener) {
         this.onChoiceListener = onChoiceListener;
-        return this;
+        return self();
     }
 
     public OnMultiChoiceListener getOnMultiChoiceListener() {
@@ -137,6 +137,6 @@ public class ListDialogBuilder extends DialogBuilder<ListDialogBuilder> {
 
     public ListDialogBuilder setOnMultiChoiceListener(OnMultiChoiceListener onMultiChoiceListener) {
         this.onMultiChoiceListener = onMultiChoiceListener;
-        return this;
+        return self();
     }
 }

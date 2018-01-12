@@ -4,9 +4,9 @@ package cn.yhq.dialog.core;
  * Created by Yanghuiqiang on 2016/10/9.
  */
 
-class Dialog implements IDialog {
+class Dialog<T extends DialogBuilder<T>> implements IDialog {
     private android.app.Dialog dialog;
-    private DialogBuilder dialogBuilder;
+    private DialogBuilder<T> dialogBuilder;
 
     Dialog(android.app.Dialog dialog) {
         this.dialog = dialog;
@@ -30,11 +30,11 @@ class Dialog implements IDialog {
         return this.dialog;
     }
 
-    void setDialogBuilder(DialogBuilder dialogBuilder) {
+    void setDialogBuilder(DialogBuilder<T> dialogBuilder) {
         this.dialogBuilder = dialogBuilder;
     }
 
-    DialogBuilder getDialogBuilder() {
+    DialogBuilder<T> getDialogBuilder() {
         return dialogBuilder;
     }
 }

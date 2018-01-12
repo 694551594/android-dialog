@@ -5,8 +5,6 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.TextUtils;
-import android.view.View;
-import android.widget.FrameLayout;
 
 import cn.yhq.dialog.R;
 import cn.yhq.dialog.builder.AlertDialogBuilder;
@@ -39,10 +37,6 @@ public class DialogBuilder<T extends DialogBuilder<T>> {
     private DialogInterface.OnClickListener onNegativeButtonClickListener;
     private boolean cancelable;
     private boolean canceledOnTouchOutside;
-
-    private View contentView;
-    private int contentViewResId;
-    private FrameLayout.LayoutParams layoutParams;
 
     private DialogInterface.OnCancelListener onCancelListener;
     private DialogInterface.OnDismissListener onDismissListener;
@@ -119,39 +113,8 @@ public class DialogBuilder<T extends DialogBuilder<T>> {
         return self();
     }
 
-    public int getContentViewResId() {
-        return contentViewResId;
-    }
-
-    public T setContentViewResId(int contentViewResId) {
-        this.contentViewResId = contentViewResId;
-        return self();
-    }
-
-    private T self() {
+    protected T self() {
         return (T) this;
-    }
-
-    public T setContentViewResId(int contentViewResId,
-                                 FrameLayout.LayoutParams layoutParams) {
-        this.contentViewResId = contentViewResId;
-        this.layoutParams = layoutParams;
-        return self();
-    }
-
-    public View getContentView() {
-        return contentView;
-    }
-
-    public T setContentView(View contentView) {
-        this.contentView = contentView;
-        return self();
-    }
-
-    public T setContentView(View contentView, FrameLayout.LayoutParams layoutParams) {
-        this.contentView = contentView;
-        this.layoutParams = layoutParams;
-        return self();
     }
 
     public OnStateChangeListener getOnStateChangeListener() {
@@ -223,10 +186,6 @@ public class DialogBuilder<T extends DialogBuilder<T>> {
     public T setContext(Context context) {
         this.context = context;
         return self();
-    }
-
-    public FrameLayout.LayoutParams getLayoutParams() {
-        return layoutParams;
     }
 
     public T setTitle(int title) {
@@ -302,7 +261,7 @@ public class DialogBuilder<T extends DialogBuilder<T>> {
         return negativeButtonText;
     }
 
-    public T defaultButtonText() {
+    public T setDefaultButtonText() {
         if (TextUtils.isEmpty(this.getNegativeButtonText())) {
             this.setNegativeButtonText(R.string.cancel);
         }
@@ -310,6 +269,11 @@ public class DialogBuilder<T extends DialogBuilder<T>> {
             this.setPositiveButtonText(R.string.okay);
         }
         return self();
+    }
+
+    @Deprecated
+    public T defaultButtonText() {
+        return setDefaultButtonText();
     }
 
     public DialogInterface.OnCancelListener getOnCancelListener() {
@@ -349,7 +313,7 @@ public class DialogBuilder<T extends DialogBuilder<T>> {
     }
 
     public final IDialog create() {
-        return DialogFactory.create(this);
+        return DialogFactory.create((T) this);
     }
 
     public final IDialog show() {
