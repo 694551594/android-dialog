@@ -9,20 +9,20 @@ import android.view.View;
 import android.widget.EditText;
 
 import cn.yhq.dialog.R;
-import cn.yhq.dialog.core.DialogBuilder;
+import cn.yhq.dialog.builder.EditTextDialogBuilder;
 import cn.yhq.dialog.core.DialogProvider;
-import cn.yhq.dialog.utils.EditTextUtils;
+import cn.yhq.utils.EditTextUtils;
 
 
 /**
  * Created by Yanghuiqiang on 2016/10/8.
  */
 
-public class EditTextDialogProvider extends DialogProvider {
+public class EditTextDialogProvider extends DialogProvider<EditTextDialogBuilder> {
 
     @SuppressLint("InflateParams")
     @Override
-    public Dialog createInnerDialog(final DialogBuilder dialogBuilder) {
+    public Dialog createInnerDialog(final EditTextDialogBuilder dialogBuilder) {
         dialogBuilder.defaultButtonText();
 
         View contentView = LayoutInflater.from(dialogBuilder.getContext())
@@ -66,9 +66,9 @@ public class EditTextDialogProvider extends DialogProvider {
     static class PositiveButtonClickListener implements View.OnClickListener {
         DialogInterface dialog;
         EditText editText;
-        DialogBuilder dialogBuilder;
+        EditTextDialogBuilder dialogBuilder;
 
-        public PositiveButtonClickListener(DialogInterface dialog, DialogBuilder dialogBuilder, EditText editText) {
+        public PositiveButtonClickListener(DialogInterface dialog, EditTextDialogBuilder dialogBuilder, EditText editText) {
             this.dialog = dialog;
             this.editText = editText;
             this.dialogBuilder = dialogBuilder;
