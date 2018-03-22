@@ -6,7 +6,7 @@
 - MessageDialog：消息对话框，只有确定按钮
 - AlertDialog：确认对话框，有确认和取消按钮
 - ListDialog：普通选择、单选或者多选对话框
-- EditTextDialog：有一个editText和checkbox的对话框
+- EditTextDialog：有一个editText的对话框
 - ProgressDialog：一个可以显示具体进度的对话框
 - BottomSheetDialog：一个在底部弹出的对话框
 - 支持扩展的ContentViewDialog
