@@ -8,8 +8,9 @@ class Dialog<T extends DialogBuilder<T>> implements IDialog {
     private android.app.Dialog dialog;
     private DialogBuilder<T> dialogBuilder;
 
-    Dialog(android.app.Dialog dialog) {
+    Dialog(DialogBuilder<T> dialogBuilder, android.app.Dialog dialog) {
         this.dialog = dialog;
+        this.dialogBuilder = dialogBuilder;
     }
 
     @Override
@@ -28,10 +29,6 @@ class Dialog<T extends DialogBuilder<T>> implements IDialog {
     @Override
     public android.app.Dialog getInnerDialog() {
         return this.dialog;
-    }
-
-    void setDialogBuilder(DialogBuilder<T> dialogBuilder) {
-        this.dialogBuilder = dialogBuilder;
     }
 
     DialogBuilder<T> getDialogBuilder() {

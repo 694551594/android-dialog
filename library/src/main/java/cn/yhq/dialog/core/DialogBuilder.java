@@ -43,16 +43,12 @@ public class DialogBuilder<T extends DialogBuilder<T>> {
     private DialogInterface.OnShowListener onShowListener;
     private OnStateChangeListener onStateChangeListener;
 
-    public static <T extends DialogBuilder<T>> DialogBuilder<T> builder(Context context, int dialogType) {
-        return new DialogBuilder(context, dialogType);
+    public static <T extends DialogBuilder<T>> T builder(Context context, int dialogType) {
+        return (T) new DialogBuilder<T>(context, dialogType);
     }
 
     public static ProgressDialogBuilder progressDialog(Context context) {
         return ProgressDialogBuilder.getProgressDialogBuilder1(context);
-    }
-
-    public static ProgressDialogBuilder progressCircleDialog(Context context) {
-        return ProgressDialogBuilder.getProgressDialogBuilder2(context);
     }
 
     public static MessageDialogBuilder messageDialog(Context context) {
@@ -251,6 +247,9 @@ public class DialogBuilder<T extends DialogBuilder<T>> {
      * @return the positiveButtonText
      */
     public String getPositiveButtonText() {
+        if (TextUtils.isEmpty(positiveButtonText)) {
+            this.setPositiveButtonText(R.string.okay);
+        }
         return positiveButtonText;
     }
 
@@ -258,22 +257,10 @@ public class DialogBuilder<T extends DialogBuilder<T>> {
      * @return the negativeButtonText
      */
     public String getNegativeButtonText() {
-        return negativeButtonText;
-    }
-
-    public T setDefaultButtonText() {
-        if (TextUtils.isEmpty(this.getNegativeButtonText())) {
+        if (TextUtils.isEmpty(negativeButtonText)) {
             this.setNegativeButtonText(R.string.cancel);
         }
-        if (TextUtils.isEmpty(this.getPositiveButtonText())) {
-            this.setPositiveButtonText(R.string.okay);
-        }
-        return self();
-    }
-
-    @Deprecated
-    public T defaultButtonText() {
-        return setDefaultButtonText();
+        return negativeButtonText;
     }
 
     public DialogInterface.OnCancelListener getOnCancelListener() {

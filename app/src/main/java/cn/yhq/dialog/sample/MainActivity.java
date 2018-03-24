@@ -64,8 +64,7 @@ public class MainActivity extends BaseActivity {
 
         ListView listView = (ListView) this.findViewById(R.id.listview);
         final SimpleStringListAdapter adapter = SimpleStringListAdapter.create(this,
-                new String[]{"载入对话框0", "消息对话框", "确认对话框", "普通选择对话框", "单选对话框", "多选对话框", "文本输入对话框", "自定义对话框",
-                        "圆形进度对话框", "bottom sheet对话框", "普通进度对话框", "载入对话框1", "载入对话框2"});
+                new String[]{"载入对话框0", "消息对话框", "确认对话框", "普通选择对话框", "单选对话框", "多选对话框", "文本输入对话框", "自定义对话框", "bottom sheet对话框", "普通进度对话框", "载入对话框1", "载入对话框2"});
 
         listView.setAdapter(adapter);
         final Object[] list = {"选择项1", "选择项2", "选择项3", "选择项4", "选择项5", "选择项6"};
@@ -88,10 +87,10 @@ public class MainActivity extends BaseActivity {
                     case 3:
                         DialogBuilder.listDialog(MainActivity.this).setChoiceItems(list)
                                 .setChoiceType(ListDialogBuilder.TYPE_CHOICE_NORMAL)
-                                .setOnChoiceListener(new ListDialogBuilder.OnChoiceListener() {
+                                .setOnChoiceListener(new ListDialogBuilder.OnChoiceListener<String>() {
                                     // 对话框关闭后回调的一个方法，返回选择的条目
                                     @Override
-                                    public void onChoiceItem(int index, Object item) {
+                                    public void onChoiceItem(int index, String item) {
                                         Toast.makeText(MainActivity.this, "最终选择了：" + item, Toast.LENGTH_LONG).show();
                                     }
                                 }).setOnChoiceClickListener(new DialogInterface.OnClickListener() {
@@ -128,10 +127,9 @@ public class MainActivity extends BaseActivity {
                         break;
                     case 5:
                         // 已经选好的条目
-                        int[] checkedItems = {1, 3, 4};
                         DialogBuilder.listDialog(MainActivity.this)
                                 .setChoiceType(ListDialogBuilder.TYPE_CHOICE_MULTI).setChoiceItems(list)
-                                .setCheckedItems(checkedItems)
+                                .setCheckedItems(1, 3, 4)
                                 .setOnPositiveButtonClickListener(new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
@@ -145,10 +143,10 @@ public class MainActivity extends BaseActivity {
                                         (isChecked ? "选择" : "取消选择") + "了第" + (which + 1) + "个条目", Toast.LENGTH_LONG)
                                         .show();
                             }
-                        }).setOnMultiChoiceListener(new ListDialogBuilder.OnMultiChoiceListener() {
+                        }).setOnMultiChoiceListener(new ListDialogBuilder.OnMultiChoiceListener<String>() {
                             // 对话框关闭后回调的一个方法，返回选择的条目
                             @Override
-                            public void onMultiChoiceItems(List<Integer> indexs, Object[] items) {
+                            public void onMultiChoiceItems(List<Integer> indexs, String[] items) {
                                 Toast.makeText(MainActivity.this, "最终选择了：" + Arrays.toString(items),
                                         Toast.LENGTH_LONG).show();
                             }
@@ -181,35 +179,6 @@ public class MainActivity extends BaseActivity {
                                 .show();
                         break;
                     case 8:
-                        final ProgressDialogBuilder.ProgressHandler progressHandler =
-                                new ProgressDialogBuilder.ProgressHandler();
-                        DialogBuilder.progressCircleDialog(MainActivity.this).progressHandler(progressHandler)
-                                .show();
-                        final Handler handler = new Handler() {
-                            @Override
-                            public void handleMessage(Message msg) {
-                                super.handleMessage(msg);
-                                int progress = msg.arg1;
-                                progressHandler.setProgress(progress);
-                            }
-                        };
-                        new Thread(new Runnable() {
-                            @Override
-                            public void run() {
-                                for (int i = 1; i <= 100; i++) {
-                                    Message message = new Message();
-                                    message.arg1 = i;
-                                    handler.sendMessage(message);
-                                    try {
-                                        Thread.sleep(100);
-                                    } catch (InterruptedException e) {
-                                        e.printStackTrace();
-                                    }
-                                }
-                            }
-                        }).start();
-                        break;
-                    case 9:
                         View sheetView =
                                 View.inflate(MainActivity.this, android.R.layout.simple_list_item_1, null);
                         TextView sheetViewTextView = (TextView) sheetView.findViewById(android.R.id.text1);
@@ -219,7 +188,7 @@ public class MainActivity extends BaseActivity {
                                         new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, 800))
                                 .show();
                         break;
-                    case 10:
+                    case 9:
                         final ProgressDialogBuilder.ProgressHandler progressHandler1 =
                                 new ProgressDialogBuilder.ProgressHandler();
                         DialogBuilder.progressDialog(MainActivity.this).progressHandler(progressHandler1)
@@ -248,15 +217,10 @@ public class MainActivity extends BaseActivity {
                             }
                         }).start();
                         break;
-                    case 11:
-                        DialogBuilder.loadingDialog1(MainActivity.this).setPositiveButtonText("确定").setOnPositiveButtonClickListener(new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-
-                            }
-                        }).show();
+                    case 10:
+                        DialogBuilder.loadingDialog1(MainActivity.this).show();
                         break;
-                    case 12:
+                    case 11:
                         DialogBuilder.loadingDialog2(MainActivity.this).show();
                         break;
                 }

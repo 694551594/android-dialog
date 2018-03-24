@@ -31,12 +31,12 @@ public class ListDialogBuilder extends DialogBuilder<ListDialogBuilder> {
     private OnMultiChoiceListener onMultiChoiceListener;
     private DialogInterface.OnClickListener onChoiceClickListener;
 
-    public interface OnChoiceListener {
-        void onChoiceItem(int index, Object item);
+    public interface OnChoiceListener<T> {
+        void onChoiceItem(int index, T item);
     }
 
-    public interface OnMultiChoiceListener {
-        void onMultiChoiceItems(List<Integer> indexs, Object[] items);
+    public interface OnMultiChoiceListener<T> {
+        void onMultiChoiceItems(List<Integer> indexs, T[] items);
     }
 
     public ListDialogBuilder(Context context) {
@@ -81,7 +81,7 @@ public class ListDialogBuilder extends DialogBuilder<ListDialogBuilder> {
         return self();
     }
 
-    public ListDialogBuilder setChoiceItems(Object... choiceItems) {
+    public <T> ListDialogBuilder setChoiceItems(T... choiceItems) {
         this.choiceItems = new ArrayList<>();
         for (Object o : choiceItems) {
             this.choiceItems.add(o);
@@ -117,25 +117,25 @@ public class ListDialogBuilder extends DialogBuilder<ListDialogBuilder> {
         return checkedItems;
     }
 
-    public ListDialogBuilder setCheckedItems(int[] checkedItems) {
+    public ListDialogBuilder setCheckedItems(int... checkedItems) {
         this.checkedItems = checkedItems;
         return self();
     }
 
-    public OnChoiceListener getOnChoiceListener() {
+    public <T> OnChoiceListener<T> getOnChoiceListener() {
         return onChoiceListener;
     }
 
-    public ListDialogBuilder setOnChoiceListener(OnChoiceListener onChoiceListener) {
+    public <T> ListDialogBuilder setOnChoiceListener(OnChoiceListener<T> onChoiceListener) {
         this.onChoiceListener = onChoiceListener;
         return self();
     }
 
-    public OnMultiChoiceListener getOnMultiChoiceListener() {
+    public <T> OnMultiChoiceListener<T> getOnMultiChoiceListener() {
         return onMultiChoiceListener;
     }
 
-    public ListDialogBuilder setOnMultiChoiceListener(OnMultiChoiceListener onMultiChoiceListener) {
+    public <T> ListDialogBuilder setOnMultiChoiceListener(OnMultiChoiceListener<T> onMultiChoiceListener) {
         this.onMultiChoiceListener = onMultiChoiceListener;
         return self();
     }

@@ -3,7 +3,7 @@ apply plugin: 'com.novoda.bintray-release'
 
 android {
     compileSdkVersion 27
-    buildToolsVersion '27.0.2'
+    buildToolsVersion '27.0.3'
     defaultConfig {
         minSdkVersion 14
         targetSdkVersion 27
@@ -22,17 +22,16 @@ android {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile 'com.github.lzyzsd:circleprogress:1.1.0@aar'
-    compile 'cn.yhq:android-utils:1.1.0'
-    compile 'com.android.support:appcompat-v7:27.0.2'
-    compile 'com.android.support:design:27.0.2'
+    compile 'cn.yhq:android-utils:1.2.0'
+    compile 'com.android.support:appcompat-v7:27.1.0'
+    compile 'com.android.support:design:27.1.0'
 }
 
 publish {
     userOrg = '694551594'
     groupId = 'cn.yhq'
     artifactId = 'android-dialog'
-    publishVersion = '1.6.0'
+    publishVersion = '2.0.0'
     desc = 'android对话框'
     website = 'https://github.com/694551594/android-dialog'
 }

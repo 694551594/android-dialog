@@ -17,8 +17,6 @@ public class ContentViewDialogProvider<T extends OtherDialogBuilder<T>> extends 
 
     @Override
     public Dialog createInnerDialog(OtherDialogBuilder dialogBuilder) {
-        dialogBuilder.setDefaultButtonText();
-
         AlertDialog.Builder builder = new AlertDialog.Builder(dialogBuilder.getContext())
                 .setTitle(dialogBuilder.getTitle()).setMessage(dialogBuilder.getMessage())
                 .setNegativeButton(dialogBuilder.getNegativeButtonText(),

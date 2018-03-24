@@ -41,7 +41,7 @@ public class EditTextDialogBuilder extends OtherDialogBuilder<EditTextDialogBuil
                     onContentViewListener.onContentViewCreated(contentView);
                 }
                 final EditText editText = (EditText) contentView.findViewById(R.id.edittext);
-                EditTextUtils.onTextToEnd(editText);
+                EditTextUtils.setSelectionToEnd(editText);
                 // 调用控件初始化接口
                 final OnEditTextDialogListener onEditTextDialogListener = getOnEditTextDialogListener();
                 if (onEditTextDialogListener != null) {

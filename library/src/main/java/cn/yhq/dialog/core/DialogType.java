@@ -11,7 +11,6 @@ public class DialogType {
     public final static int DIALOG_LOADING0 = 2;
     public final static int DIALOG_LIST = 3;
     public final static int DIALOG_EDIT_TEXT = 4;
-    public final static int DIALOG_CIRCLE_PROGRESS = 5;
     public final static int DIALOG_BOTTOM_SHEET = 6;
     public final static int DIALOG_PROGRESS = 7;
     public final static int DIALOG_LOADING1 = 8;

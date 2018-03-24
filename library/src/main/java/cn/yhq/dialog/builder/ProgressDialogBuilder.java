@@ -32,10 +32,6 @@ public class ProgressDialogBuilder extends DialogBuilder<ProgressDialogBuilder> 
         return new ProgressDialogBuilder(context, DialogType.DIALOG_PROGRESS);
     }
 
-    public static ProgressDialogBuilder getProgressDialogBuilder2(Context context) {
-        return new ProgressDialogBuilder(context, DialogType.DIALOG_CIRCLE_PROGRESS);
-    }
-
     public OnProgressListener getOnProgressListener() {
         return onProgressListener;
     }

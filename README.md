@@ -6,7 +6,7 @@
 - MessageDialog：消息对话框，只有确定按钮
 - AlertDialog：确认对话框，有确认和取消按钮
 - ListDialog：普通选择、单选或者多选对话框
-- EditTextDialog：有一个editText和checkbox的对话框
+- EditTextDialog：有一个editText的对话框
 - ProgressDialog：一个可以显示具体进度的对话框
 - BottomSheetDialog：一个在底部弹出的对话框
 - 支持扩展的ContentViewDialog
@@ -14,7 +14,7 @@
 [![](https://raw.githubusercontent.com/694551594/android-dialog/master/screenshots/截屏_20161010_140525.png)](https://raw.githubusercontent.com/694551594/android-dialog/master/screenshots/截屏_20161010_140525.png)
 
 # gradle配置方式
-`compile 'cn.yhq:android-dialog:1.6.0'`
+`compile 'cn.yhq:android-dialog:2.0.0'`
 # 使用方法
 创建对话框的方式有两种：
 #### 1、使用DialogBuilder直接创建，这种方式创建的对话框不会保存状态，即当屏幕旋转等导致的activity重建，对话框会消失。
@@ -96,11 +96,9 @@ DialogBuilder.alertDialog(MainActivity.this).setMessage(args.getString("message"
 [![](https://raw.githubusercontent.com/694551594/android-dialog/master/screenshots/截屏_20161010_140547.png)](https://raw.githubusercontent.com/694551594/android-dialog/master/screenshots/截屏_20161010_140547.png)
 ##### 显示一个多选对话框
 ```java
- // 已经选好的条目
-            int[] checkedItems = {1, 3, 4};
             DialogBuilder.listDialog(MainActivity.this)
                 .setChoiceType(DialogBuilder.TYPE_CHOICE_MULTI).setChoiceItems(list)
-                .setCheckedItems(checkedItems)
+                .setCheckedItems(1, 3, 4) // 已经选好的条目
                 .setOnPositiveButtonClickListener(new DialogInterface.OnClickListener() {
                   @Override
                   public void onClick(DialogInterface dialog, int which) {

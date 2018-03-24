@@ -7,7 +7,6 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
 
 public class DialogFragment extends android.support.v4.app.DialogFragment {
     private IDialog dialog;
@@ -65,15 +64,14 @@ public class DialogFragment extends android.support.v4.app.DialogFragment {
     }
 
     @Override
-    public LayoutInflater getLayoutInflater(Bundle savedInstanceState) {
-        LayoutInflater layoutInflater = super.getLayoutInflater(savedInstanceState);
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
         if (savedInstanceState != null) {
             DialogBuilder.OnStateChangeListener onStateChangeListener = getOnStateChangeListener();
             if (onStateChangeListener != null) {
                 onStateChangeListener.onRestoreInstanceState(dialog, savedInstanceState);
             }
         }
-        return layoutInflater;
     }
 
     @Override
