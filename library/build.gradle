@@ -21,10 +21,10 @@ android {
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile 'cn.yhq:android-utils:1.2.0'
-    compile 'com.android.support:appcompat-v7:27.1.0'
-    compile 'com.android.support:design:27.1.0'
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'cn.yhq:android-utils:1.2.0'
+    implementation 'com.android.support:appcompat-v7:27.1.0'
+    implementation 'com.android.support:design:27.1.0'
 }
 
 publish {
